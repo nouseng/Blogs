@@ -1,4 +1,4 @@
-# It Moves Now — Dynamic Mooring in 6DOF
+# It Moves Now: Dynamic Mooring with a 6DOF FOWT
 
 A full 6DOF Modelica MultiBody floating turbine, exported as an FMI 2.0 co-simulation FMU and
 driven from Python under combined wind and wave loading. Each mooring line's force is computed at
