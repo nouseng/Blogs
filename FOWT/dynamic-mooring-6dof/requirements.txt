@@ -1,0 +1,8 @@
+numpy
+scipy
+pandas
+fmpy
+onnxruntime
+plotly
+jupyter
+nbformat
