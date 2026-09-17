@@ -13,3 +13,7 @@ Code, data, and figures for the posts on [nouseng.co](https://nouseng.co).
   FMU and driven from Python under wind and wave loading, comparing the analytical catenary against
   Part 1's ONNX surrogate.
   [Read the post](https://nouseng.co/posts/fowt-dynamic-mooring-6dof/)
+- [`FOWT/agentic-simulation`](FOWT/agentic-simulation) — *Who Runs Your Simulation When You're Not
+  a Simulation Engineer?* A thin LLM tool-calling layer over the Part 2 FMU co-simulation: agent
+  loop, tool schemas, Streamlit app, and notebook, running locally against Ollama.
+  [Read the post](https://nouseng.co/posts/fowt-agentic-simulation/)
