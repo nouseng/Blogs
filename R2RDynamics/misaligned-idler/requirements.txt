@@ -1,0 +1,6 @@
+fmpy==0.3.29
+numpy==2.4.4
+matplotlib==3.10.8
+nbformat>=5.10,<6
+ipykernel>=6,<8
+jupyterlab>=4,<5

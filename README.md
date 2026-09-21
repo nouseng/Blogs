@@ -17,3 +17,10 @@ Code, data, and figures for the posts on [nouseng.co](https://nouseng.co).
   a Simulation Engineer?* A thin LLM tool-calling layer over the Part 2 FMU co-simulation: agent
   loop, tool schemas, Streamlit app, and notebook, running locally against Ollama.
   [Read the post](https://nouseng.co/posts/fowt-agentic-simulation/)
+
+## R2RDynamics
+
+- [`R2RDynamics/misaligned-idler`](R2RDynamics/misaligned-idler) — *More Grip, Better Tracking?
+  Modeling the Tradeoffs.* A misaligned idler under nip load in a Modelica film-winding line, run
+  as an FMI 2.0 FMU from Python: nip load, friction, yaw, tram and runout sweeps.
+  [Read the post](https://nouseng.co/posts/nip-force-web-tracking/)
