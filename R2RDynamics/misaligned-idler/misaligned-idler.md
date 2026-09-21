@@ -1,5 +1,6 @@
 # More Grip, Better Tracking? Modeling the Tradeoffs
 
+---
 The slip reading improves. The web stays off centre. Has more nip force
 solved the problem?
 
@@ -8,9 +9,10 @@ slip by 66%, while final lateral offset changes by less than 1%.
 
 We use **Roll2RollDynamics**, an internal Modelica library, to couple roller
 motion and elastic web spans with lateral tracking and frictional contact.
-Its yaw steering, runout tension ripple and closed-loop tension tracking
-are checked against published measurements [1–4]; nip contact under
-crossed or tilted axes rests on consistency checks only.
+Its yaw steering and closed-loop tension tracking are checked against
+published measurements [1–3]; nip contact under crossed or tilted axes,
+and the runout disturbance demonstrated here, rest on consistency checks
+only.
 With tension controls active, we examine nip loading, alignment and friction,
 then trace a runout disturbance into neighbouring spans. These experiments
 demonstrate modeling capability using assumed parameters without production
@@ -217,19 +219,19 @@ alignment.
 
 ## Finding a Local Tension Disturbance
 
-Does low accumulated slip mean steady loading? We align the idler and give
-the nip drum a 0.3 mm centre-offset amplitude, orbiting once per turn.
-For this ideal circular drum, that means 0.6 mm peak-to-peak radial
-indicator excursion. Plot labels use the 0.3 mm eccentricity amplitude.
+Does low accumulated slip mean steady loading? We align the idler and drive
+the nip drum with a 0.3 mm eccentricity: its centre orbits the bearing axis
+once per revolution, 0.6 mm peak-to-peak on this ideal circular drum.
 
 Slip barely changes: 5.92 mm over 40 s versus 5.80 mm aligned and concentric.
 Yet nip load cycles between about 700 and 1300 N.
 
 ![Nip load and local tension differences from the aligned case](images/MisalignedIdler/runout.png)
 
-*Figure 13. Tension ripple is 9.7 N peak-to-peak downstream versus 0.69 N
-entering the idler. Tension panels show differences from the aligned,
-concentric case on matching vertical scales.*
+*Figure 13. Nip load at the 0.3 mm eccentricity amplitude. Tension ripple
+is 9.7 N peak-to-peak downstream versus 0.69 N entering the idler.
+Tension panels show differences from the aligned, concentric case on
+matching vertical scales.*
 
 Compression gains and loses 0.3 mm per revolution. At speed `v = 2 m/s` and
 nip radius `R = 0.05 m`, the disturbance frequency is `f = v/(2πR) = 6.37 Hz`.
@@ -243,12 +245,9 @@ tension.*
 
 This gives an engineer reason to inspect local tension alongside the
 controlled upstream signal. A disturbance at nip turning frequency makes
-runout a candidate, but does not uniquely identify it. Branca, Pagilla
-and Reid measured the same once-per-revolution mechanism on the Euclid
-Web Line in *Web Tension Behavior in the Presence of Eccentric Rollers:
-Modeling and Validation* (2011). Load range here follows the assumed
-cover law; tension amplitudes lack machine calibration. Angular runout is
-excluded.
+runout a candidate, but does not uniquely identify it. Load range here
+follows the assumed cover law; tension amplitudes lack machine
+calibration. Angular runout is excluded.
 
 ## Using the Results
 
@@ -292,11 +291,7 @@ friction and contact properties.
 2. Yun, Lee, Jang, Kim, Kim and Lee, "Sensor-Efficient Estimation of
    Lateral Web Position in Roll-to-Roll Film Processing," *Polymers*
    17(21):2907, 2025. [doi:10.3390/polym17212907](https://doi.org/10.3390/polym17212907).
-3. N. Branca, P. R. Pagilla and K. N. Reid, "Web Tension Behavior in the
-   Presence of Eccentric Rollers: Modeling and Validation," *Proc.
-   International Conference on Web Handling*, Oklahoma State University,
-   2011. [Open Research Oklahoma](https://openresearch.okstate.edu/).
-4. J. Kim, K. Kim, H. Kim, P. Park, S. Lee, T. Lee and D. Kang,
+3. J. Kim, K. Kim, H. Kim, P. Park, S. Lee, T. Lee and D. Kang,
    "Experimental Validation of High Precision Web Handling for a
    Two-Actuator-Based Roll-to-Roll System," *Sensors* 22(8):2917, 2022.
    [doi:10.3390/s22082917](https://doi.org/10.3390/s22082917).
