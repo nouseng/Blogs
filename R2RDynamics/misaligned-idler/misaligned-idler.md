@@ -187,31 +187,33 @@ the cover.*
 
 *Figure 11. Asymmetric contact under a rigid, level housing.*
 
-At 1.15 degrees, centre-to-edge height change already reaches 6.6 mm
-against 1 mm centre compression, exceeding the contact approximation's
-useful quantitative range. The uncapped linear springs and rigid housing
-extrapolate forces and moments without nonlinear cover response, housing
-compliance or actuator force limiting.
+At the rigid housing's fixed centre-line distance, tram redistributes
+compression rather than relieving it: the raised end digs deeper into the
+cover while the lowered end lifts clear. Below about 0.17 degrees the face
+stays fully in contact and total load holds at the aligned 1000 N; past
+that, the shrinking footprint carries the same centre-line penetration
+over less width, and load climbs.
 
 ![Tram offset, approximate contact footprint, load and creep](images/MisalignedIdler/tram-sweep.png)
 
 *Figure 12. Tram shifts contact toward one end while reducing simulated
-creep. Forces extrapolated beyond the linear cover law's useful range
-are unsuitable for hardware sizing.*
+creep. Load rises as the footprint narrows, on a rigid,
+imposed-compression housing.*
 
-The calculated footprint narrows from 660 mm aligned to roughly
-350–380 mm on the raised side; its load resultant moves about 200 mm
-off centre. Implied housing moments of roughly 450–1050 N·m expose an
-asymmetric load path, rather than predict real housing loads. The
-underlying load itself reaches about 2200 to 4800 N, several times the
-1000 N cap that applies only to a force-controlled actuator, not this
-imposed-compression housing.
+At 0.2, 0.4 and 0.6 degrees, the footprint narrows from 660 mm aligned to
+617, 474 and 426 mm; the load resultant moves 124, 172 and 188 mm off
+centre. Nip load climbs from 1000 N aligned to 1006, 1187 and 1441 N: a
+rigid housing turns a fraction of a degree of tram into load 44% above
+the 1000 N actuator-force cap, without any change at the compression
+gauge. A compliant or self-aligning housing would cap this instead of
+letting it climb; this model has neither.
 
 Through the entering span, descending from the dancer at 34 degrees,
-tram steers toward the low end. Offsets settle between 5.8 and 15.2 mm,
-opposite to the yaw cases. Lower creep and higher total nip force therefore
-coexist with asymmetric contact and displacement in this idealized model.
-Neither reading establishes correct alignment.
+tram steers toward the low end. Offsets settle between -1.0 and -3.1 mm,
+opposite in sign and much smaller than the yaw cases. Lower creep and
+higher total nip force therefore coexist with asymmetric contact and
+displacement in this idealized model. Neither reading establishes correct
+alignment.
 
 ## Finding a Local Tension Disturbance
 
@@ -264,9 +266,9 @@ Each experiment separates a variable that a single reading conflates:
 - **Yaw** at 3 degrees lifts both face edges and drops measured load
   39% with the housing setting unchanged. The gauge reads the geometry,
   not the actuator.
-- **Tram** shifts the footprint to one end and moves the load resultant
-  about 200 mm off centre, creating a housing moment the load reading
-  never shows.
+- **Tram** shifts the footprint to one end, moves the load resultant up
+  to 188 mm off centre, and raises load 44% above the 1000 N aligned
+  reading at the same housing setting.
 - **Runout** leaves accumulated slip almost unchanged (5.92 versus
   5.80 mm) while nip load swings between 700 and 1300 N. The controlled
   upstream span sees 0.73 N of ripple against 9.7 N downstream.

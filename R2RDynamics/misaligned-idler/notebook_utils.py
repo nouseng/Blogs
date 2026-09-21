@@ -59,9 +59,9 @@ CASES = {
     "Yaw1.15": {"idlerYaw": 0.02, "idlerTram": 0},
     "Yaw2": {"idlerYaw": 2*DEG, "idlerTram": 0},
     "Yaw3": {"idlerYaw": 3*DEG, "idlerTram": 0},
-    "Tram1.15": {"idlerYaw": 0, "idlerTram": 0.02},
-    "Tram2": {"idlerYaw": 0, "idlerTram": 2*DEG},
-    "Tram3": {"idlerYaw": 0, "idlerTram": 3*DEG},
+    "Tram0.2": {"idlerYaw": 0, "idlerTram": 0.2*DEG},
+    "Tram0.4": {"idlerYaw": 0, "idlerTram": 0.4*DEG},
+    "Tram0.6": {"idlerYaw": 0, "idlerTram": 0.6*DEG},
     "Runout": {"idlerYaw": 0, "idlerTram": 0, "nipRunout": 0.3e-3},
 }
 # 40 s so the slow tension-loop ringing has settled before slip and offset
@@ -151,7 +151,7 @@ def plot_friction_result(run: dict[str, np.ndarray], destination: Path) -> Path:
 YAW_COLOURS = {
     "Yaw0": ALIGNED, "Yaw1.15": "#009e73", "Yaw2": "#0072b2", "Yaw3": "#d55e00",
 }
-TRAM_COLOURS = {"Tram1.15": "#009e73", "Tram2": "#0072b2", "Tram3": "#d55e00"}
+TRAM_COLOURS = {"Tram0.2": "#009e73", "Tram0.4": "#0072b2", "Tram0.6": "#d55e00"}
 RUNOUT_LABELS = {"Runout": "0.3 mm runout"}
 RUNOUT_COLOURS = {"Yaw0": ALIGNED, "Runout": "#d55e00"}
 
@@ -467,7 +467,7 @@ def summary_table(runs: dict[str, dict[str, np.ndarray]]) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Nip-load sweep CLI -- produces the nip-load sweep figure
+# Nip-load sweep CLI (formerly nip_load_sweep.py) -- produces Figure 2
 # ---------------------------------------------------------------------------
 
 LOAD_SWEEP = ("BearingOnly", "Nip025", "Nip050", "Nip075", "Yaw1.15")
@@ -560,7 +560,7 @@ def main_load_sweep(argv: list[str] | None = None) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Nip-friction sweep CLI -- produces the nip-friction sweep figure
+# Nip-friction sweep CLI (formerly nip_friction_sweep.py) -- produces Figure 6
 # ---------------------------------------------------------------------------
 
 FRICTION_SCALES = {"NipFriction1": 1.0, "NipFriction2": 2.0, "NipFriction3": 3.0}
@@ -691,7 +691,7 @@ def main_friction_sweep(argv: list[str] | None = None) -> None:
     )
     for ax, (key, label, title) in zip(axes, series):
         values = [row[key] for row in rows]
-        ax.plot(scales, values, "o", color="#0072b2")
+        ax.plot(scales, values, "o-", color="#0072b2")
         for scale, value in zip(scales, values):
             ax.annotate(
                 f"{value:.2f}", (scale, value), xytext=(0, 8),
