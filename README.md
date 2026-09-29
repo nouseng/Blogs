@@ -18,6 +18,13 @@ Code, data, and figures for the posts on [nouseng.co](https://nouseng.co).
   loop, tool schemas, Streamlit app, and notebook, running locally against Ollama.
   [Read the post](https://nouseng.co/posts/fowt-agentic-simulation/)
 
+## DC2DH
+
+- [`DC2DH/post-1`](DC2DH/post-1) — *Why Stockholm, Not Arizona: Where AI Waste Heat Has a Buyer.*
+  A 10 MW data-centre heat-recovery pod in Modelica, exported as an FMI 2.0 co-simulation FMU and
+  stepped from Python over a Stockholm weather year for each Open District Heating product.
+  [Read the post](https://nouseng.co/posts/dc2dh-plant/)
+
 ## R2RDynamics
 
 - [`R2RDynamics/misaligned-idler`](R2RDynamics/misaligned-idler) — *More Grip, Better Tracking?

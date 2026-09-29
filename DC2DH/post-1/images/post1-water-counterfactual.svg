@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="900" height="430" role="img" aria-labelledby="tB dB">
+  <title id="tB">What cooling the same 10 MW pod costs in water</title>
+  <desc id="dB">Three columns separating the water effects: a fully evaporative hot-dry counterfactual at roughly 130 million litres a year, Stockholm at zero onsite litres because rejection is dry, and an attribution showing about 73 million litres-equivalent associated with recovered IT heat while about 58 million litres-equivalent remains on the dry-cooling path.</desc>
+  <style>
+    .bg{fill:#ffffff}
+    .h{font:600 19px "Segoe UI",Inter,sans-serif;fill:#1a1a1a}
+    .col{font:600 15px "Segoe UI",Inter,sans-serif;fill:#1a1a1a}
+    .big{font:700 24px "Segoe UI",Inter,sans-serif;fill:#1a1a1a}
+    .sub{font:12px "Segoe UI",Inter,sans-serif;fill:#5a5a5a}
+    .foot{font:12px "Segoe UI",Inter,sans-serif;fill:#5a5a5a}
+    .panel{fill:#f6f4f0;stroke:#d8d2c8;stroke-width:1}
+    .win{fill:#eef5ee;stroke:#9dbf9d;stroke-width:1}
+  </style>
+  <rect class="bg" x="0" y="0" width="900" height="430"/>
+  <text class="h" x="40" y="42">Cooling the same 10 MW pod: what it costs in water</text>
+
+  <rect class="panel" x="40"  y="64" width="256" height="250" rx="6"/>
+  <rect class="panel" x="322" y="64" width="256" height="250" rx="6"/>
+  <rect class="win"   x="604" y="64" width="256" height="250" rx="6"/>
+
+  <text class="col" x="60"  y="92">Hot, dry site</text>
+  <text class="sub" x="60"  y="110">fully evaporative</text>
+  <text class="col" x="342" y="92">Stockholm</text>
+  <text class="sub" x="342" y="110">dry cooler</text>
+  <text class="col" x="624" y="92">Attribution</text>
+  <text class="sub" x="624" y="110">inside the ~130 million L</text>
+
+  <g transform="translate(60,128)">
+    <path d="M28 0 C28 0 56 32 56 48 A28 28 0 1 1 0 48 C0 32 28 0 28 0 Z" fill="#4a7fb5"/>
+  </g>
+  <g transform="translate(342,128)">
+    <path d="M28 0 C28 0 56 32 56 48 A28 28 0 1 1 0 48 C0 32 28 0 28 0 Z" fill="none" stroke="#b8b2a8" stroke-width="2" stroke-dasharray="4 3"/>
+  </g>
+  <g transform="translate(624,128)">
+    <path d="M28 0 C28 0 56 32 56 48 A28 28 0 1 1 0 48 C0 32 28 0 28 0 Z" fill="none" stroke="#b8b2a8" stroke-width="2" stroke-dasharray="4 3"/>
+  </g>
+
+  <text class="big" x="60"  y="238">~130 million L/yr</text>
+  <text class="sub" x="60"  y="258">evaporated to reject ~87,700 MWh</text>
+  <text class="sub" x="60"  y="276">of heat, at 1.5 L per kWh — water's</text>
+  <text class="sub" x="60"  y="298">latent heat (~2.4 MJ/kg), so a floor</text>
+
+  <text class="big" x="342" y="238">0 L on site</text>
+  <text class="sub" x="342" y="258">air-cooled: the year's warmest hour is</text>
+  <text class="sub" x="342" y="276">30 °C, so free cooling runs 100% of the</text>
+  <text class="sub" x="342" y="294">year and nothing evaporates</text>
+
+  <text class="big" x="624" y="230">~73 million L</text>
+  <text class="sub" x="624" y="250">equivalent to recovered IT heat</text>
+  <text class="sub" x="624" y="268">48,782 MWh goes to the network</text>
+  <text class="sub" x="624" y="286">~58 million L-equivalent remains</text>
+  <text class="sub" x="624" y="304">and is avoided by dry cooling</text>
+
+  <text class="foot" x="40" y="344">Cross-check: Mytton's published 25.5 million L/yr per MW scales to ~255 million L/yr at 10 MW — about twice the figure above, because the</text>
+  <text class="foot" x="40" y="362">published number also counts drift, blowdown and humidification, which the latent-heat conversion drops. The floor is a floor.</text>
+  <text class="foot" x="40" y="388">And the site number is the smaller one: US data centres averaged 0.36 L/kWh on site through 2023, while the electricity behind that</text>
+  <text class="foot" x="40" y="406">carried 4.52 L/kWh upstream at the power plant — roughly 12× as much (LBNL 2024).</text>
+</svg>

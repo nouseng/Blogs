@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" width="900" height="450" role="img" aria-labelledby="tD dD">
+  <title id="tD">How heat moves through the pod, from the rack to the district network</title>
+  <desc id="dD">A closed loop carries the liquid-cooled IT heat: the rack-side pipe picks it up and returns it five kelvin hotter to the cooling-side pipe, which sends it back to the rack. From the cooling side the heat leaves two ways — through a heat pump to the district network, or out to ambient through a dry cooler. The accumulator tank sits downstream of the heat pump, in parallel with the delivery path: a charge command diverts lifted heat that would otherwise be sold into the tank, and a discharge command adds heat from the tank on top of production.</desc>
+  <style>
+    .bg{fill:#ffffff}
+    .h{font:600 19px "Segoe UI",Inter,sans-serif;fill:#1a1a1a}
+    .box{font:600 14px "Segoe UI",Inter,sans-serif;fill:#1a1a1a}
+    .sub{font:11.5px "Segoe UI",Inter,sans-serif;fill:#5a5a5a}
+    .edge{font:11.5px "Segoe UI",Inter,sans-serif;fill:#5a5a5a}
+    .foot{font:12px "Segoe UI",Inter,sans-serif;fill:#5a5a5a}
+    .panel{fill:#f6f4f0;stroke:#d8d2c8;stroke-width:1}
+    .win{fill:#eef5ee;stroke:#9dbf9d;stroke-width:1}
+    .loop{fill:#eaf1f8;stroke:#4a7fb5;stroke-width:1}
+    .ln{fill:none;stroke:#8a8378;stroke-width:1.6}
+    .lnb{fill:none;stroke:#4a7fb5;stroke-width:1.6}
+    .dash{fill:none;stroke:#8a8378;stroke-width:1.6;stroke-dasharray:5 4}
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8a8378"/>
+    </marker>
+    <marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#4a7fb5"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="900" height="450"/>
+  <text class="h" x="40" y="42">Inside the pod: where the liquid loop's heat can go</text>
+
+  <!-- closed plant loop -->
+  <rect class="loop" x="40" y="118" width="196" height="72" rx="6"/>
+  <text class="box" x="58" y="148">Rack-side pipe</text>
+  <text class="sub" x="58" y="168">picks up IT heat</text>
+
+  <rect class="loop" x="40" y="272" width="196" height="72" rx="6"/>
+  <text class="box" x="58" y="302">Cooling-side pipe</text>
+  <text class="sub" x="58" y="322">gives the heat back up</text>
+
+  <path class="lnb" d="M92 190 L92 272" marker-end="url(#arb)"/>
+  <text class="edge" x="100" y="222">tLiqRet</text>
+  <text class="edge" x="100" y="238">+5 K rise</text>
+
+  <path class="lnb" d="M186 272 L186 190" marker-end="url(#arb)"/>
+  <text class="edge" x="194" y="216">tLiqSup</text>
+
+  <text class="sub" x="40" y="374">383 kg/s, 42 °C and 47 °C, all 8,760 hours</text>
+
+  <!-- three exits -->
+  <rect class="win" x="330" y="118" width="190" height="64" rx="6"/>
+  <text class="box" x="348" y="146">Heat pump</text>
+  <text class="sub" x="348" y="166">lifts to the product's temperature</text>
+
+  <rect class="panel" x="330" y="276" width="190" height="64" rx="6"/>
+  <text class="box" x="348" y="304">Accumulator tank</text>
+  <text class="sub" x="348" y="324">parallel to delivery</text>
+
+  <rect class="panel" x="330" y="360" width="190" height="64" rx="6"/>
+  <text class="box" x="348" y="388">Dry cooler</text>
+  <text class="sub" x="348" y="408">free cooling / mechanical</text>
+
+  <!-- cooling side to the two exits -->
+  <path class="ln" d="M236 294 L283 294 L283 150 L330 150" marker-end="url(#ar)"/>
+  <path class="ln" d="M236 322 L300 322 L300 392 L330 392" marker-end="url(#ar)"/>
+
+  <!-- the tank charges off the heat pump's output, not off the loop -->
+  <path class="dash" d="M425 182 L425 276" marker-end="url(#ar)"/>
+  <text class="edge" x="433" y="234">charge</text>
+
+  <!-- network -->
+  <rect class="win" x="640" y="176" width="220" height="92" rx="6"/>
+  <text class="box" x="658" y="206">District network</text>
+  <text class="sub" x="658" y="228">Retur / Inblandning / Prima</text>
+  <text class="sub" x="658" y="248">the heat leaves as a product</text>
+
+  <path class="ln" d="M520 150 L580 150 L580 206 L640 206" marker-end="url(#ar)"/>
+  <path class="dash" d="M520 308 L586 308 L586 244 L640 244" marker-end="url(#ar)"/>
+  <text class="edge" x="528" y="332">discharge</text>
+
+  <path class="ln" d="M520 392 L588 392" marker-end="url(#ar)"/>
+  <text class="edge" x="596" y="396">to ambient</text>
+
+  <text class="foot" x="40" y="436">Solid: heat that moves whenever the plant runs. Dashed: only on a charge or discharge command.</text>
+</svg>

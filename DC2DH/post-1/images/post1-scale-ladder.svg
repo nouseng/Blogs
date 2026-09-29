@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="900" height="440" role="img" aria-labelledby="tA dA">
+  <title id="tA">If every white-collar job got an always-on agent</title>
+  <desc id="dA">A four-term chain from the ILO's 3.6 billion global workers, narrowed to the 724 million in ISCO groups 1 to 3, times 8.4 to 84 watts per always-on agent, times 8760 hours, giving 53 to 533 TWh a year. That is 13 to 128 percent of the IEA's 415 TWh for all data centres in 2024, or 608 to 6,080 pods of 10 megawatts.</desc>
+  <style>
+    .bg{fill:#ffffff}
+    .h{font:600 19px "Segoe UI",Inter,sans-serif;fill:#1a1a1a}
+    .lbl{font:600 16px "Segoe UI",Inter,sans-serif;fill:#1a1a1a}
+    .sub{font:12px "Segoe UI",Inter,sans-serif;fill:#5a5a5a}
+    .op{font:600 22px "Segoe UI",Inter,sans-serif;fill:#8a8a8a}
+    .res{font:700 26px "Segoe UI",Inter,sans-serif;fill:#c1440e}
+    .pods{font:700 19px "Segoe UI",Inter,sans-serif;fill:#3f7a4a}
+    .chosen{font:700 10px "Segoe UI",Inter,sans-serif;fill:#b0521a}
+    .card{fill:#f6f4f0;stroke:#d8d2c8;stroke-width:1}
+    .cardC{fill:#fdf3e7;stroke:#e0b380;stroke-width:1}
+    .foot{font:12px "Segoe UI",Inter,sans-serif;fill:#5a5a5a}
+  </style>
+  <rect class="bg" x="0" y="0" width="900" height="440"/>
+  <text class="h" x="40" y="42">If every white-collar job got an always-on agent</text>
+
+  <rect class="card"  x="40"  y="66" width="185" height="106" rx="6"/>
+  <text class="lbl"  x="56"  y="98">3.6 billion</text>
+  <text class="sub"  x="56"  y="120">people working</text>
+  <text class="sub"  x="56"  y="138">worldwide</text>
+  <text class="sub"  x="56"  y="160">ILO, 2023</text>
+  <text class="op"   x="232" y="126">×</text>
+
+  <rect class="card"  x="252" y="66" width="185" height="106" rx="6"/>
+  <text class="lbl"  x="268" y="98">20.1%</text>
+  <text class="sub"  x="268" y="120">in ISCO 1–3, so</text>
+  <text class="sub"  x="268" y="138">724 million jobs</text>
+  <text class="sub"  x="268" y="160">ILO WESO 2025</text>
+  <text class="op"   x="444" y="126">×</text>
+
+  <rect class="cardC" x="464" y="66" width="200" height="106" rx="6"/>
+  <text class="chosen" x="480" y="84">STREAM COUNT CHOSEN</text>
+  <text class="lbl"  x="480" y="108">8.4 – 84 W</text>
+  <text class="sub"  x="480" y="128">per always-on agent</text>
+  <text class="sub"  x="480" y="146">700 W GPU × 1.2 PUE,</text>
+  <text class="sub"  x="480" y="164">shared by 10–100 agents</text>
+  <text class="op"   x="672" y="126">×</text>
+
+  <rect class="card"  x="692" y="66" width="120" height="106" rx="6"/>
+  <text class="lbl"  x="708" y="98">8,760</text>
+  <text class="sub"  x="708" y="120">hours</text>
+  <text class="sub"  x="708" y="138">a year</text>
+
+  <line x1="40" y1="196" x2="860" y2="196" stroke="#d8d2c8" stroke-width="1"/>
+
+  <text class="lbl" x="40"  y="230">Which comes to</text>
+  <text class="res" x="180" y="234">53 – 533 TWh per year</text>
+
+  <rect x="140" y="272" width="700" height="26" rx="4" fill="#eeeae3"/>
+  <rect x="205" y="272" width="575" height="26" rx="4" fill="#c1440e" fill-opacity="0.28"/>
+  <line x1="640" y1="266" x2="640" y2="304" stroke="#1a1a1a" stroke-width="2"/>
+  <text class="sub" x="40"  y="290">against 2024</text>
+  <text class="sub" x="209" y="290">13%</text>
+  <text class="sub" x="744" y="290">128%</text>
+  <text class="sub" x="500" y="322">415 TWh — every data centre on Earth in 2024 (IEA)</text>
+
+  <text class="pods" x="40" y="360">That is 6.1 – 60.8 GW running continuously: 608 to 6,080 pods of 10 MW.</text>
+
+  <text class="foot" x="40" y="390">The claim being tested is Anthropic CEO Dario Amodei's — half of all entry-level white-collar jobs gone inside one to five years (Axios,</text>
+  <text class="foot" x="40" y="408">May 2025). This takes it to its limit: one agent per job, never sleeping. Two inputs are mine, not a source's — one agent per job, and how</text>
+  <text class="foot" x="40" y="426">many agents share a GPU.</text>
+</svg>
