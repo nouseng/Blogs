@@ -54,7 +54,7 @@ of that burden; the remaining roughly 58 million litres-equivalent is avoided
 because the residual heat is rejected through the dry cooler. Recovery and dry
 rejection are separate contributions.
 
-## License
+## Image credit
 
-MIT, in [LICENSE](LICENSE). The Lake Mead photo
-(`images/post1-lake-mead.jpg`) is a USGS public-domain image.
+The Lake Mead photo (`images/post1-lake-mead.jpg`) is a USGS public-domain
+image.
