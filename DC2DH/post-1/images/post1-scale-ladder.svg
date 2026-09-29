@@ -55,11 +55,11 @@
   <text class="sub" x="40"  y="290">against 2024</text>
   <text class="sub" x="209" y="290">13%</text>
   <text class="sub" x="744" y="290">128%</text>
-  <text class="sub" x="500" y="322">415 TWh — every data centre on Earth in 2024 (IEA)</text>
+  <text class="sub" x="500" y="322">415 TWh: every data centre on Earth in 2024 (IEA)</text>
 
   <text class="pods" x="40" y="360">That is 6.1 – 60.8 GW running continuously: 608 to 6,080 pods of 10 MW.</text>
 
-  <text class="foot" x="40" y="390">The claim being tested is Anthropic CEO Dario Amodei's — half of all entry-level white-collar jobs gone inside one to five years (Axios,</text>
-  <text class="foot" x="40" y="408">May 2025). This takes it to its limit: one agent per job, never sleeping. Two inputs are mine, not a source's — one agent per job, and how</text>
+  <text class="foot" x="40" y="390">The claim being tested is Anthropic CEO Dario Amodei's: half of all entry-level white-collar jobs gone inside one to five years (Axios,</text>
+  <text class="foot" x="40" y="408">May 2025). This takes it to its limit: one agent per job, never sleeping. Two inputs are mine, not a source's: one agent per job, and how</text>
   <text class="foot" x="40" y="426">many agents share a GPU.</text>
 </svg>

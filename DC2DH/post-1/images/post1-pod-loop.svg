@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" width="900" height="450" role="img" aria-labelledby="tD dD">
   <title id="tD">How heat moves through the pod, from the rack to the district network</title>
-  <desc id="dD">A closed loop carries the liquid-cooled IT heat: the rack-side pipe picks it up and returns it five kelvin hotter to the cooling-side pipe, which sends it back to the rack. From the cooling side the heat leaves two ways — through a heat pump to the district network, or out to ambient through a dry cooler. The accumulator tank sits downstream of the heat pump, in parallel with the delivery path: a charge command diverts lifted heat that would otherwise be sold into the tank, and a discharge command adds heat from the tank on top of production.</desc>
+  <desc id="dD">A closed loop carries the liquid-cooled IT heat: the rack-side pipe picks it up and returns it five kelvin hotter to the cooling-side pipe, which sends it back to the rack. From the cooling side the heat leaves two ways: through a heat pump to the district network, or out to ambient through a dry cooler. The accumulator tank sits downstream of the heat pump, in parallel with the delivery path: a charge command diverts lifted heat that would otherwise be sold into the tank, and a discharge command adds heat from the tank on top of production.</desc>
   <style>
     .bg{fill:#ffffff}
     .h{font:600 19px "Segoe UI",Inter,sans-serif;fill:#1a1a1a}

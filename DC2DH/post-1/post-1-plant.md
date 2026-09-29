@@ -83,7 +83,7 @@ line and pays least. **Inblandning** is blended into the network at a fixed
 cold weather, and pays most.
 
 <!-- markdownlint-disable MD013 -->
-![The delivery-temperature ladder: Retur, Inblandning and Prima's required delivery temperature plotted against ambient, with the loop's constant 47°C return marked — its crossings with the Retur curve bound the free-delivery window](images/post1-delivery-ladder.png)
+![The delivery-temperature ladder: Retur, Inblandning and Prima's required delivery temperature plotted against ambient, with the loop's constant 47°C return marked; its crossings with the Retur curve bound the free-delivery window](images/post1-delivery-ladder.png)
 <!-- markdownlint-enable MD013 -->
 
 Prima runs from 68 to 103 °C over a year. Inblandning is 68–80 °C, and I take
@@ -126,7 +126,7 @@ not a constant load. I assume a 700 W GPU at a PUE of 1.2, shared by 10 to 100
 agents: 8.4 to 84 W each, for 8,760 hours.
 
 <!-- markdownlint-disable MD013 -->
-![The chain from 3.6 billion workers to 724 million white-collar jobs, times 8.4 to 84 watts per always-on agent, times 8,760 hours — giving 53 to 533 TWh a year, or 13% to 128% of the 415 TWh every data centre on Earth used in 2024](images/post1-scale-ladder.svg)
+![The chain from 3.6 billion workers to 724 million white-collar jobs, times 8.4 to 84 watts per always-on agent, times 8,760 hours, giving 53 to 533 TWh a year, or 13% to 128% of the 415 TWh every data centre on Earth used in 2024](images/post1-scale-ladder.svg)
 <!-- markdownlint-enable MD013 -->
 
 That gives 53 to 533 TWh a year. The low end is an eighth of what all data
@@ -144,7 +144,7 @@ itself, taking commands from an orchestrator.
 A closed loop carries the liquid-cooled 80% of the pod's heat:
 
 <!-- markdownlint-disable MD013 -->
-![A closed loop carries the liquid-cooled IT heat: the rack-side pipe picks it up and returns it five kelvin hotter to the cooling-side pipe, which sends it back to the rack. From the cooling side the heat leaves two ways — through a heat pump to the district network, or out to ambient through a dry cooler. The accumulator tank sits downstream of the heat pump, in parallel with the delivery path: a charge command diverts lifted heat that would otherwise be sold into the tank, and a discharge command adds heat from the tank on top of production](images/post1-pod-loop.svg)
+![A closed loop carries the liquid-cooled IT heat: the rack-side pipe picks it up and returns it five kelvin hotter to the cooling-side pipe, which sends it back to the rack. From the cooling side the heat leaves two ways: through a heat pump to the district network, or out to ambient through a dry cooler. The accumulator tank sits downstream of the heat pump, in parallel with the delivery path: a charge command diverts lifted heat that would otherwise be sold into the tank, and a discharge command adds heat from the tank on top of production](images/post1-pod-loop.svg)
 <!-- markdownlint-enable MD013 -->
 
 The pump keeps a constant 5 K rise across the rack, so flow is a constant
@@ -235,7 +235,7 @@ nothing. The comparison asks what the *same* pod would use at a hot, dry site
 that evaporated all its heat, at about 1.5 L per kWh:
 
 <!-- markdownlint-disable MD013 -->
-![Three columns separating the water effects: a fully evaporative hot-dry what-if at roughly 130 million litres a year, Stockholm at zero onsite litres because rejection is dry, and an attribution showing about 73 million litres-equivalent associated with recovered IT heat while about 58 million litres-equivalent remains on the dry-cooling path](images/post1-water-counterfactual.svg)
+![Three columns: a hot, dry site that cools by evaporating water uses roughly 130 million litres a year; Stockholm uses 0 litres on site because fans cool the pod all year; that 130 million litres splits into about 73 million litres a year for heat sold to the network and about 58 million litres a year for heat the fans reject](images/post1-water-counterfactual.svg)
 <!-- markdownlint-enable MD013 -->
 
 The 130 million litres comes from the cooling choice. Stockholm uses no onsite
