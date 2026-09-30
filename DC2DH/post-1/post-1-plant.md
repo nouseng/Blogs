@@ -44,9 +44,9 @@ heat, usually through a cooling tower
 ([US Department of Energy](https://www.energy.gov/sites/prod/files/2013/11/f4/thermally_activated_lithiumbromide.pdf)).
 The EPA's 2007 cost figures price whole packages at old energy prices
 ([EPA CHP Partnership](https://www.epa.gov/sites/default/files/2015-07/documents/the_role_of_distributed_generation_and_combined_heat_and_power_chp_systems_in_data_centers.pdf)),
-so I skip cost.
+so we skip cost.
 
-Instead I use one simple what-if. Take a 10 MW IT pod that gives off 87.6 GWh
+Instead we use one simple what-if. Take a 10 MW IT pod that gives off 87.6 GWh
 of heat a year, and assume a hot, dry site rejects all of it by evaporation. At
 about 1.5 litres per kWh, that is roughly 130 million litres of water a year.
 
@@ -86,13 +86,13 @@ cold weather, and pays most.
 ![The delivery-temperature ladder: Retur, Inblandning and Prima's required delivery temperature plotted against ambient, with the loop's constant 47°C return marked; its crossings with the Retur curve bound the free-delivery window](images/post1-delivery-ladder.png)
 <!-- markdownlint-enable MD013 -->
 
-Prima runs from 68 to 103 °C over a year. Inblandning is 68–80 °C, and I take
+Prima runs from 68 to 103 °C over a year. Inblandning is 68–80 °C, and we take
 the middle, 74 °C. Retur must be at least 3 K above the incoming return
 ([Öppen Fjärrvärme product sheet](https://www.stockholmexergi.se/wp-content/uploads/2023/05/Produktblad_tjanster_Oppen-Fjarrvarme.pdf)).
 The network curves come from Energiforsk 2024:1059, an average over 213 Swedish
 systems, not a Stockholm measurement.
 
-How much heat the network takes is my own assumption, and it matters most: a
+How much heat the network takes is our own assumption, and it matters most: a
 2 MW summer base, plus 900 kW per kelvin of space heating below 17 °C, capped at
 20 MW.
 
@@ -102,7 +102,7 @@ How much heat the network takes is my own assumption, and it matters most: a
 
 Above about 10 °C, the network wants less heat than the pod's liquid loop
 makes, and the rest is dumped. Change the base or the slope and that crossing
-moves, so every result below depends on numbers I chose.
+moves, so every result below depends on numbers we chose.
 
 ## How Much Heat Is Coming?
 
@@ -115,14 +115,14 @@ within five years
 The ILO is more careful: about a quarter of jobs exposed, with change likelier
 than replacement
 ([ILO](https://www.ilo.org/resource/news/one-four-jobs-risk-being-transformed-genai-new-ilo%E2%80%93nask-global-index-shows)).
-I run the extreme case. Take the world's ~724 million manager, professional and
+We run the extreme case. Take the world's ~724 million manager, professional and
 technical jobs
 ([ILO](https://www.ilo.org/sites/default/files/2025-01/WESO25_Trends_Report_EN.pdf)),
 and give each one an AI agent running every hour of the year.
 
-Power per agent is my weakest number. Google reports about 0.24 Wh for a median
+Power per agent is our weakest number. Google reports about 0.24 Wh for a median
 Gemini text prompt ([Google](https://arxiv.org/abs/2508.15734)), but a prompt is
-not a constant load. I assume a 700 W GPU at a PUE of 1.2, shared by 10 to 100
+not a constant load. We assume a 700 W GPU at a PUE of 1.2, shared by 10 to 100
 agents: 8.4 to 84 W each, for 8,760 hours.
 
 <!-- markdownlint-disable MD013 -->
@@ -132,12 +132,12 @@ agents: 8.4 to 84 W each, for 8,760 hours.
 That gives 53 to 533 TWh a year. The low end is an eighth of what all data
 centres on Earth used in 2024 (about 415 TWh). The high end is more than all of
 them together. That is 608 to 6,080 pods of 10 MW. It is a scenario, not a
-prediction, and in every version the electricity becomes heat. So let me zoom
+prediction, and in every version the electricity becomes heat. So let us zoom
 in on one pod.
 
 ## Inside One Pod
 
-I modelled the pod in Modelica and exported it as one FMU. It runs as a study
+We modelled the pod in Modelica and exported it as one FMU. It runs as a study
 here, reading a year of Stockholm weather. Later, the same FMU runs as the plant
 itself, taking commands from an orchestrator.
 
@@ -197,7 +197,7 @@ every hour runs on fans alone (COP 15).
 
 ### The Year, End to End
 
-I run the Stockholm Arlanda TMYx year (8,760 hourly rows, −18.0 °C to 30.0 °C)
+We run the Stockholm Arlanda TMYx year (8,760 hourly rows, −18.0 °C to 30.0 °C)
 once per product, with every set point at its default.
 
 <!-- markdownlint-disable MD013 -->
@@ -252,7 +252,7 @@ energy once the heat pump's lift is counted. It evaporates nothing on site.
 These are physical minimums, not a site forecast. A dry-cooled Arizona build
 would also use no water, though it would pay in energy and equipment.
 
-The recovery figure rests on a demand curve I picked. Change it and the answer
+The recovery figure rests on a demand curve we picked. Change it and the answer
 moves, by up to the fourteen points the summer mismatch showed. There is no
 price in the model either, so what really caps summer sales is money, not pipes.
 

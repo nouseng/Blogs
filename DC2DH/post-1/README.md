@@ -1,6 +1,6 @@
 # The model behind "Why Stockholm, Not Arizona"
 
-This is the companion code for my blog post,
+This is the companion code for our blog post,
 [**Why Stockholm, Not Arizona: Where AI Waste Heat Has a Buyer**](post-1-plant.md).
 Every modelled plant-performance number in that post comes from one notebook
 study. This is that study, made runnable: a single notebook that steps a 10 MW
