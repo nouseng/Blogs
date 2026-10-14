@@ -1,0 +1,14 @@
+{
+  "archive_url": "https://s3.us-west-2.amazonaws.com/static-assets.hbrisk.com/ground-motion-sets/2b_ATC-63_Far-Field_GroundMotionAccelTextFiles_Unscaled_Original.zip",
+  "archive_sha256": "340ea47176323c363634b456c317e553dbcfced503f3e82827355a23145b9638",
+  "summary_url": "https://s3.us-west-2.amazonaws.com/static-assets.hbrisk.com/ground-motion-sets/1_ReadMe_ATC-63_GroundMotionSet_FarField_SummaryFile.xls",
+  "summary_sha256": "e775ee429b4311dc1c8b362b78640523fa331445a46e8cee8f15138f9acde1bb",
+  "selection": "Table A-4C rows for 22 pairs, joined to Tables A-4A and A-4B",
+  "damping": 0.05,
+  "additional_high_pass": false,
+  "normalization": "Each component divided by its own source PGA",
+  "weighting": "Equal component weights; paired components are correlated",
+  "solver": "scipy.signal.lsim, linear interpolation, initially at rest",
+  "output_sampling": "At least 20 samples per oscillator cycle",
+  "post_record_tail": "Zero input for five oscillator periods"
+}

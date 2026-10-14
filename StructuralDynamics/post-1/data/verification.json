@@ -1,0 +1,23 @@
+{
+  "article_words_including_alt_text": 1458,
+  "sampling_refinement_max_relative_difference": 0.0028659269408818355,
+  "fmu_max_relative_difference": 0.00314669884217067,
+  "fmu_solver": "FMPy CVODE, implicit BDF, Model Exchange",
+  "fmu_relative_tolerance": 1e-07,
+  "fmu_output_interval_s": 0.001,
+  "fmu_refined_relative_tolerance": 1e-08,
+  "fmu_refined_output_interval_s": 0.0005,
+  "fmu_refinement_max_relative_difference": 5.752211218768011e-05,
+  "independent_solver_relative_difference": 5.6340430321100143e-08,
+  "ensemble_components": 44,
+  "station_pairs": 22,
+  "earthquakes": 14,
+  "frame_comparison_events": [
+    "Northridge1994",
+    "Kobe1995"
+  ],
+  "frame_free_response_period_s": {
+    "Northridge1994": 1.0500000000001677,
+    "Kobe1995": 1.049999999999791
+  }
+}

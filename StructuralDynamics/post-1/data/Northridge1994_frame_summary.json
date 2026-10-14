@@ -1,0 +1,27 @@
+{
+  "record": "Northridge1994",
+  "input_acceleration_correlation": 0.9959998838432024,
+  "model": "TenStoreyFrame",
+  "storeys": 10,
+  "member_profile": "HEB500",
+  "floor_mass_kg": 20000,
+  "solver": "OpenModelica IDA with sparse KLU",
+  "tolerance": 1e-05,
+  "stop_time_s": 60.0,
+  "source_sha256": "ae2eb94392e1ef9dc552e425da3e7b4f90453a315a8d929bc5b7bbd0656dedcb",
+  "animation_time_window_s": [
+    2.2800000000000002,
+    15.620000000000001
+  ],
+  "animation_displacement_scale": 6,
+  "peaks": {
+    "fixedRoofDisplacement": 0.4296068921401339,
+    "isolatedRoofDisplacement": 0.0608640790565116,
+    "isolationTravel": 0.2270594659826449,
+    "isolationForce": 225553.9757920858,
+    "fixedStressRatio": 2.355586199199866,
+    "isolatedStressRatio": 0.3718844959229733,
+    "fixedMaxDriftRatio": 0.01825725260928242,
+    "isolatedMaxDriftRatio": 0.0027144360323854144
+  }
+}

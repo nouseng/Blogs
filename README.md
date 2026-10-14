@@ -31,3 +31,11 @@ Code, data, and figures for the posts on [nouseng.co](https://nouseng.co).
   Modeling the Tradeoffs.* A misaligned idler under nip load in a Modelica film-winding line, run
   as an FMI 2.0 FMU from Python: nip load, friction, yaw, tram and runout sweeps.
   [Read the post](https://nouseng.co/posts/nip-force-web-tracking/)
+
+## StructuralDynamics
+
+- [`StructuralDynamics/post-1`](StructuralDynamics/post-1) — *What Can Electrical Circuits Teach
+  Us About Earthquake Engineering?* A ten-storey steel frame under Northridge 1994 and Kobe 1995,
+  base isolation explained through a series RLC circuit, with spectra run from FMI 2.0 FMUs in
+  Python and checked against the FEMA P-695 far-field set.
+  [Read the post](https://nouseng.co/posts/structural-circuits-earthquake/)

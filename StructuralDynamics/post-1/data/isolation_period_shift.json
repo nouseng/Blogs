@@ -1,0 +1,24 @@
+{
+  "fixed_period_s": 1.05,
+  "fixed_damping_ratio": 0.02,
+  "correction_time_s": 5.0,
+  "interpretation": "Isolated point: Figure 6 bearing linearised at its simulated peak travel (secant period, hysteretic loop damping), frame rigid above",
+  "records": {
+    "Northridge1994": {
+      "isolated_period_s": 2.9734876013776526,
+      "isolated_damping_ratio": 0.17939545643259291,
+      "pseudo_acceleration_g": [
+        1.1841806629984328,
+        0.09111324959657374
+      ]
+    },
+    "Kobe1995": {
+      "isolated_period_s": 2.58556812554044,
+      "isolated_damping_ratio": 0.2684977413649691,
+      "pseudo_acceleration_g": [
+        0.30371453519181213,
+        0.07374878072488614
+      ]
+    }
+  }
+}

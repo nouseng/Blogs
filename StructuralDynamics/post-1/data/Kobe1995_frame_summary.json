@@ -1,0 +1,27 @@
+{
+  "record": "Kobe1995",
+  "input_acceleration_correlation": 0.9970149302600739,
+  "model": "TenStoreyFrame",
+  "storeys": 10,
+  "member_profile": "HEB500",
+  "floor_mass_kg": 20000,
+  "solver": "OpenModelica IDA with sparse KLU",
+  "tolerance": 1e-05,
+  "stop_time_s": 60.0,
+  "source_sha256": "e0ff030386b32fe188aac3e134e40ce6ca87356c217ac3cd7d817ec50b6211dd",
+  "animation_time_window_s": [
+    4.4,
+    17.85
+  ],
+  "animation_displacement_scale": 6,
+  "peaks": {
+    "fixedRoofDisplacement": 0.1140933227417289,
+    "isolatedRoofDisplacement": 0.0542762037535049,
+    "isolationTravel": 0.1085896840528279,
+    "isolationForce": 142665.7545216465,
+    "fixedStressRatio": 0.7597136932108308,
+    "isolatedStressRatio": 0.2906874916492119,
+    "fixedMaxDriftRatio": 0.004986590527842931,
+    "isolatedMaxDriftRatio": 0.00250346601353287
+  }
+}
