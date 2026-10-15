@@ -1,4 +1,5 @@
 <!-- markdownlint-disable MD013 -->
+
 <!-- Pasted into a web editor: one paragraph per line is intentional. -->
 
 # What Can Electrical Circuits Teach Us About Earthquake Engineering?
@@ -11,7 +12,7 @@ Why does the same building sway so differently under two earthquakes? In Figure 
 
 The frame is a one-bay plane frame, 30 m tall with a 6 m bay, using S355 HEB500 for beams and columns and 20 tonnes per floor plus member masses. It is not code-designed.
 
-Colours show each member's peak extreme-fibre stress, axial plus bending, divided by yield strength; gravity alone gives about 0.13. The simulation stays elastic, so ratios above one flag demand beyond yield, where real steel would deform permanently.
+Colours show each member's peak extreme-fibre stress, axial plus bending, divided by yield strength; gravity alone gives about 0.13. The simulation stays elastic, so ratios above 1 flag demand beyond yield, where real steel would deform permanently.
 
 Resonance offers a starting point: like pushes timed to a swing's rhythm, shaking near a structure's natural frequency builds response over successive cycles. An earthquake's frequency content and duration therefore matter alongside its PGA.
 
@@ -31,13 +32,17 @@ At a one-second period, near the frame's 1.05 seconds, Northridge produces 344 m
 
 A linear single-degree-of-freedom (SDOF) model under horizontal ground motion follows:
 
-$$m\ddot{x}+c\dot{x}+kx=-ma_g.$$
+$$
+m\ddot{x}+c\dot{x}+kx=-ma_g.
+$$
 
 Here, $x$ is displacement relative to the ground, $m$ mass, $k$ stiffness, $c$ the viscous damping coefficient and $a_g$ ground acceleration.
 
-For a series RLC circuit, [Kirchhoff's voltage law](https://en.wikipedia.org/wiki/RLC_circuit#Series_circuit) gives $V_L+V_R+V_C=V_{in}$. With $V_L=L\,di/dt$, $V_R=Ri$, $V_C=q/C$ and $i=\dot{q}$:
+For a series RLC circuit, [Kirchhoff&#39;s voltage law](https://en.wikipedia.org/wiki/RLC_circuit#Series_circuit) gives $V_L+V_R+V_C=V_{in}$. With $V_L=L\,di/dt$, $V_R=Ri$, $V_C=q/C$ and $i=\dot{q}$:
 
-$$L\ddot{q}+R\dot{q}+q/C=V_{in}.$$
+$$
+L\ddot{q}+R\dot{q}+q/C=V_{in}.
+$$
 
 In this force–voltage analogy, inductance $L$ maps to mass, resistance $R$ to damping, capacitance $C$ to flexibility $1/k$, charge $q$ to relative displacement, current to relative velocity, and source voltage $V_{in}$ to the effective earthquake force $-ma_g$.
 
@@ -47,11 +52,11 @@ In this force–voltage analogy, inductance $L$ maps to mass, resistance $R$ to 
 
 The undamped natural period is $T=2\pi\sqrt{m/k}=2\pi\sqrt{LC}$. More mass or flexibility lengthens it.
 
-Now take $V_{out}=V_R+V_C=V_{in}-V_L$. Mechanically, $V_L\leftrightarrow m\ddot{x}$ is the relative inertia term, and $V_R+V_C\leftrightarrow c\dot{x}+kx$ is the force through the damper and spring, the only force accelerating the mass in absolute terms. So $|V_{out}/V_{in}|=|1-V_L/V_{in}|$ is acceleration transmissibility: the mass's absolute acceleration over ground acceleration under steady sinusoidal shaking. It is close to 1 at low frequency and peaks near $1/(2\zeta)$ at resonance, about 25 at 2% damping, where $\zeta$ is the damping ratio: a second-order low-pass response.
+Now take $V_{out}=V_R+V_C=V_{in}-V_L$. Mechanically, $V_L\leftrightarrow m\ddot{x}$ is the relative inertia term, and $V_R+V_C\leftrightarrow c\dot{x}+kx$ is the force through the damper and spring, the only force accelerating the mass in absolute terms. So $|V_{out}/V_{in}|=|1-V_L/V_{in}|$ is acceleration transmissibility: the mass's absolute acceleration over ground acceleration under steady sinusoidal shaking. It is close to 1 at low frequency and peaks near $1/(2\zeta)$ at resonance, about 25 at 2% damping, where $\zeta$ is the damping ratio.
 
 ## The Low-Pass Filter
 
-Figure 4 shows this filter for a 1.05-second circuit. At low frequency the mass follows the ground; near resonance the output grows. Above the cutoff, √2 times the natural frequency (here 1.35 Hz), the gain falls below 1 and keeps falling: the mass increasingly stays still while the ground moves under it.
+Figure 4 shows this response for a 1.05-second circuit: a low-pass filter. At low frequency the mass follows the ground; near resonance the output grows. Above the cutoff, √2 times the natural frequency (here 1.35 Hz), the gain falls below 1 and keeps falling: the mass increasingly stays still while the ground moves under it. The cutoff depends on mass and flexibility, not damping.
 
 ![Low-pass gain curve above a passing slow sine and a blocked fast sine](images/transmissibility.png)
 
@@ -59,7 +64,7 @@ Figure 4 shows this filter for a 1.05-second circuit. At low frequency the mass 
 
 ## Adding Base Isolation
 
-Figure 5 adds an orange RC branch for the isolator in parallel with the building's blue branch, both in series with the mass inductor. Added flexibility, a larger capacitance, lengthens the period: at 3 seconds, the cutoff falls from 1.35 to 0.47 Hz. This illustration assumes a linear bearing and a massless junction between layers.
+Figure 5 adds an orange RC branch for the isolator in parallel with the building's blue branch, both in series with the mass inductor. The bearing's low horizontal stiffness, a large $C_{iso}$, lowers the system's lateral stiffness and lengthens the period: at 3 seconds, the cutoff falls from 1.35 to 0.47 Hz. Both branches carry the same voltage, the force through the layers, so the building's charge, its drift, follows $V_{out}$. Lowering the cutoff below about 1.7 Hz, above which most records peak (Figure 8), cuts that voltage; the extra charge collects on the isolator capacitor as bearing travel. This illustration assumes a linear bearing and a massless junction between layers.
 
 ![An inductor in series with parallel building and isolator branches, each containing a resistor and capacitor in series, beside a frame supported by a bearing](images/isolation_rlc.png)
 
@@ -89,7 +94,7 @@ Figure 7 places the fixed-base frame at 1.05 seconds (squares) and the isolated 
 
 ## From Records to a Spectral Shape
 
-Do other records support this period shift? Figure 8 uses [FEMA P-695's far-field set](https://sp3risk.com/ground-motion-sets/): 44 horizontal components from 22 stations in 14 earthquakes, at 5% damping, each divided by its PGA. This classic teaching normalisation differs from practice, which scales records to spectral acceleration over a period range, and from Figure 7's 2% values. The blue band spans the 16th–84th percentiles.
+Do other records support this period shift? Figure 8 uses [FEMA P-695&#39;s far-field set](https://sp3risk.com/ground-motion-sets/): 44 horizontal components from 22 stations in 14 earthquakes, at 5% damping, each divided by its PGA. This classic teaching normalisation differs from practice, which scales records to spectral acceleration over a period range, and from Figure 7's 2% values. The blue band spans the 16th–84th percentiles.
 
 ![Forty-four normalized spectra and a simplified fit, both marking the fixed-base and illustrative isolated periods with squares, circles and arrows](images/design_fit.png)
 
@@ -101,7 +106,7 @@ This is a typical shape, not a design input: code spectra come from site hazard 
 
 ## What the Circuit Teaches
 
-A structure behaves like an RLC circuit, and its transmitted acceleration is low-pass filtered, so PGA alone says little. Isolation adds capacitance, lowering the cutoff below an earthquake's strongest frequencies. The price is displacement, which the bearing and its clearance must absorb.
+A structure behaves like an RLC circuit: its response depends on where an earthquake's frequency content meets its resonance, so PGA alone says little. A bearing's low horizontal stiffness lengthens the period and moves the cutoff below the frequencies where most records are strongest, so the force through the building, and its drift, falls. The price is bearing displacement, which the clearance around it must accommodate.
 
 ## Limits
 

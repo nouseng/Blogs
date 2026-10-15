@@ -260,7 +260,7 @@ def isolation_rlc() -> None:
         bbox={"facecolor": "white", "edgecolor": "none", "pad": 1},
     )
     mechanical.text(
-        0.3, 6.1, "Building\ncan flex", fontsize=10, color=BLUE
+        0.3, 6.1, "Elastic\nsuperstructure", fontsize=10, color=BLUE
     )
 
     # Force-voltage dual: mechanical layers in series become parallel RC branches.
