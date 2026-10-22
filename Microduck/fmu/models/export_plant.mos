@@ -1,0 +1,8 @@
+loadModel(Modelica, {"4.1.0"});
+loadFile("../../Duck/package.mo");
+loadFile("DuckPlant.mo");
+getErrorString();
+getErrorString();
+setCommandLineOptions("-d=disableFMIDependency");
+buildModelFMU(DuckPlant, version = "2.0", fmuType = "me", platforms = {"static"});
+getErrorString();

@@ -44,3 +44,25 @@ Code, data, and figures for the posts on [nouseng.co](https://nouseng.co).
   base isolation explained through a series RLC circuit, with spectra run from FMI 2.0 FMUs in
   Python and checked against the FEMA P-695 far-field set.
   [Read the post](https://nouseng.co/posts/structural-circuits-earthquake/)
+
+## Microduck
+
+Shared across the posts: [`Microduck/fmu`](Microduck/fmu) (robot plant and standing FMUs, the
+policy runs in Python), [`Microduck/mujoco`](Microduck/mujoco) (training model, ONNX policy,
+notebooks). See [`Microduck/README.md`](Microduck/README.md).
+
+- [`Microduck/post-1`](Microduck/post-1) — *Why We Built a Walking Robot Duck Twice.* The
+  Microduck biped rebuilt as a Modelica plant model and verified against MuJoCo.
+  [Read the post](https://nouseng.co/posts/microduck-why-modelica/)
+- [`Microduck/post-2`](Microduck/post-2) — *The Servo Is a Motor, Not a Gain.* The XL330
+  servo from gain register to torque, standing at two gains, and the walking torque-speed load.
+  [Read the post](https://nouseng.co/posts/microduck-servo-motor/)
+- [`Microduck/post-3`](Microduck/post-3) — *What Does an Empty Battery Do to a Walking
+  Robot?* The closed-loop walk at 8.2, 7.4 and 6.5 V servo supply.
+  [Read the post](https://nouseng.co/posts/microduck-battery-voltage/)
+- [`Microduck/post-4`](Microduck/post-4) — *Same Policy, 50% Faster: The Contact Law Was the
+  Model.* MuJoCo's soft contact rebuilt in Modelica, and a friction sweep in both simulators.
+  [Read the post](https://nouseng.co/posts/microduck-contact-law/)
+- [`Microduck/post-5`](Microduck/post-5) — *Which Servo Failure Can a Walking Robot
+  Survive?* Worn, weak and unpowered knee faults, and per-servo copper loss.
+  [Read the post](https://nouseng.co/posts/microduck-servo-faults/)

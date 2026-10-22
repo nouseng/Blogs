@@ -1,0 +1,20 @@
+// Run from <Microduck repo>/build/<task>/ with: omc run.mos
+loadModel(Modelica, {"4.1.0"});
+loadFile("../../Duck/package.mo");
+getErrorString();
+loadFile("WalkNominal.mo");
+simulate(WalkNominal, stopTime = 6, method = "rungekutta", numberOfIntervals = 6000, outputFormat = "csv",
+  variableFilter = "^(time|distance|trunkHeight|trunkPitch|motorCurrent[[].*|robot[.](q|qRef)[[](4|13)[]])$");
+getErrorString();
+loadFile("WalkWornKnee.mo");
+simulate(WalkWornKnee, stopTime = 6, method = "rungekutta", numberOfIntervals = 6000, outputFormat = "csv",
+  variableFilter = "^(time|distance|trunkHeight|trunkPitch|motorCurrent[[].*|robot[.](q|qRef)[[](4|13)[]])$");
+getErrorString();
+loadFile("WalkWeakKnee.mo");
+simulate(WalkWeakKnee, stopTime = 6, method = "rungekutta", numberOfIntervals = 6000, outputFormat = "csv",
+  variableFilter = "^(time|distance|trunkHeight|trunkPitch|motorCurrent[[].*|robot[.](q|qRef)[[](4|13)[]])$");
+getErrorString();
+loadFile("WalkLimpKnee.mo");
+simulate(WalkLimpKnee, stopTime = 6, method = "rungekutta", numberOfIntervals = 6000, outputFormat = "csv",
+  variableFilter = "^(time|distance|trunkHeight|trunkPitch|motorCurrent[[].*|robot[.](q|qRef)[[](4|13)[]])$");
+getErrorString();

@@ -1,0 +1,20 @@
+// Run from <Microduck repo>/build/<task>/ with: omc run.mos
+loadModel(Modelica, {"4.1.0"});
+loadFile("../../Duck/package.mo");
+getErrorString();
+loadFile("WalkMu03.mo");
+simulate(WalkMu03, stopTime = 6, method = "rungekutta", numberOfIntervals = 6000, outputFormat = "csv",
+  variableFilter = "^(time|distance|trunkHeight)$");
+getErrorString();
+loadFile("WalkMu05.mo");
+simulate(WalkMu05, stopTime = 6, method = "rungekutta", numberOfIntervals = 6000, outputFormat = "csv",
+  variableFilter = "^(time|distance|trunkHeight)$");
+getErrorString();
+loadFile("WalkMu10.mo");
+simulate(WalkMu10, stopTime = 6, method = "rungekutta", numberOfIntervals = 6000, outputFormat = "csv",
+  variableFilter = "^(time|distance|trunkHeight)$");
+getErrorString();
+loadFile("WalkMu20.mo");
+simulate(WalkMu20, stopTime = 6, method = "rungekutta", numberOfIntervals = 6000, outputFormat = "csv",
+  variableFilter = "^(time|distance|trunkHeight)$");
+getErrorString();

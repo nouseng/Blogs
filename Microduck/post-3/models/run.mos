@@ -1,0 +1,16 @@
+// Run from <Microduck repo>/build/<task>/ with: omc run.mos
+loadModel(Modelica, {"4.1.0"});
+loadFile("../../Duck/package.mo");
+getErrorString();
+loadFile("Walk65V.mo");
+simulate(Walk65V, stopTime = 6, method = "rungekutta", numberOfIntervals = 6000, outputFormat = "csv",
+  variableFilter = "^(time|distance|trunkHeight|batteryCurrent)$");
+getErrorString();
+loadFile("Walk74V.mo");
+simulate(Walk74V, stopTime = 6, method = "rungekutta", numberOfIntervals = 6000, outputFormat = "csv",
+  variableFilter = "^(time|distance|trunkHeight|batteryCurrent)$");
+getErrorString();
+loadFile("Walk82V.mo");
+simulate(Walk82V, stopTime = 6, method = "rungekutta", numberOfIntervals = 6000, outputFormat = "csv",
+  variableFilter = "^(time|distance|trunkHeight|batteryCurrent)$");
+getErrorString();
