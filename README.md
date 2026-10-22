@@ -17,6 +17,11 @@ Code, data, and figures for the posts on [nouseng.co](https://nouseng.co).
   a Simulation Engineer?* A thin LLM tool-calling layer over the Part 2 FMU co-simulation: agent
   loop, tool schemas, Streamlit app, and notebook, running locally against Ollama.
   [Read the post](https://nouseng.co/posts/fowt-agentic-simulation/)
+- [`FOWT/active-control`](FOWT/active-control) — *Pitch Damping and Mooring Repositioning: The
+  Same Kind of Control?* ROSCO-style platform-rate feedback on collective blade pitch, run in the
+  Python loop around an FMI 2.0 FMU with a blade-pitch actuator, and a static mooring-reposition
+  solver for line lengths.
+  [Read the post](https://nouseng.co/posts/fowt-active-control/)
 
 ## DC2DH
 
