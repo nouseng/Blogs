@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 550" width="1240" height="550" role="img" aria-labelledby="title desc">
+  <title id="title">Inside the plant: four operator controls and five live readings</title>
+  <desc id="desc">Plain-language diagram of the heat-recovery plant showing how 8 MW of server heat moves from the data center cooling loop through the heat pump, storage tank, and dry-cooler fans to the district heating network or outdoor air, with each of the four writable control registers (40101 to 40104) and five reading registers (40002 to 40014) placed on the equipment it controls or measures.</desc>
+  <style>
+    .bg{fill:#ffffff}
+    .title{font:600 22px "Segoe UI",Inter,sans-serif;fill:#1a1a1a}
+    .head{font:600 16px "Segoe UI",Inter,sans-serif;fill:#1a1a1a}
+    .small{font:13px "Segoe UI",Inter,sans-serif;fill:#525252}
+    .tiny{font:12px "Segoe UI",Inter,sans-serif;fill:#5f5f5f}
+    .code{font:600 12.5px Consolas,"SFMono-Regular",Menlo,monospace;fill:#1a1a1a}
+    .panel{fill:#f6f4f0;stroke:#d8d2c8;stroke-width:1.5}
+    .loop{fill:#eaf1f8;stroke:#4a7fb5;stroke-width:1.5}
+    .net{fill:#eef5ee;stroke:#9dbf9d;stroke-width:1.5}
+    .cmd{fill:#fff4e6;stroke:#d97706;stroke-width:1.4}
+    .read{fill:#eef7f0;stroke:#2f855a;stroke-width:1.4}
+    .ln{fill:none;stroke:#6b655e;stroke-width:2}
+    .dash{fill:none;stroke:#6b655e;stroke-width:2;stroke-dasharray:6 4}
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0.5L9.5 5L0 9.5z" fill="#6b655e"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1240" height="550"/>
+  <text class="title" x="28" y="38">Inside the plant: 4 operator controls and 5 live readings</text>
+
+  <!-- Legend -->
+  <rect class="cmd" x="668" y="16" width="262" height="30" rx="5"/>
+  <text class="code" x="682" y="36">Control (W)</text>
+  <text class="small" x="782" y="36">Set by operator</text>
+
+  <rect class="read" x="944" y="16" width="268" height="30" rx="5"/>
+  <text class="code" x="958" y="36">Reading (RW*)</text>
+  <text class="small" x="1072" y="36">Reported by model</text>
+
+  <!-- COLUMN 1: Server Cooling Loop (x=28..268) -->
+  <rect class="loop" x="28" y="140" width="240" height="254" rx="8"/>
+  <text class="head" x="46" y="172">1. Server cooling loop</text>
+  <text class="small" x="46" y="198">10 MW data-center pod</text>
+  <text class="small" x="46" y="226">Water enters racks at 42 °C</text>
+  <text class="small" x="46" y="248">and leaves at 47 °C,</text>
+  <text class="small" x="46" y="270">carrying 8 MW of heat.</text>
+  <text class="tiny" x="46" y="314">Split two ways:</text>
+  <text class="tiny" x="46" y="334">• Up to heat pump (to sell)</text>
+  <text class="tiny" x="46" y="354">• Down to dry cooler (to dump)</text>
+
+  <!-- COLUMN 2: Plant Equipment (x=396..780) -->
+  <!-- 2a. Heat Pump -->
+  <rect class="loop" x="396" y="68" width="384" height="142" rx="8"/>
+  <text class="head" x="414" y="94">2a. Heat pump</text>
+  <text class="small" x="414" y="114">Boosts 47 °C water up to city network temperature</text>
+
+  <rect class="cmd" x="414" y="126" width="348" height="32" rx="4"/>
+  <text class="code" x="426" y="147">40102 Q_hp_set</text>
+  <text class="small" x="554" y="147">Heat-pump output (0–8 MW)</text>
+
+  <rect class="read" x="414" y="166" width="348" height="32" rx="4"/>
+  <text class="code" x="426" y="187">40012 COP_hp</text>
+  <text class="small" x="554" y="187">Current efficiency (COP)</text>
+
+  <!-- 2b. Accumulator Tank -->
+  <rect class="panel" x="396" y="248" width="384" height="142" rx="8"/>
+  <text class="head" x="414" y="274">2b. Hot-water tank (500 m³)</text>
+  <text class="small" x="414" y="294">Saves heat when demand is low, releases it later</text>
+
+  <rect class="cmd" x="414" y="306" width="348" height="32" rx="4"/>
+  <text class="code" x="426" y="327">40104 y_chg</text>
+  <text class="small" x="554" y="327">−1 discharge · 0 idle · +1 charge</text>
+
+  <rect class="read" x="414" y="346" width="348" height="32" rx="4"/>
+  <text class="code" x="426" y="367">40008 T_tank_top</text>
+  <text class="small" x="554" y="367">Tank temperature (°C)</text>
+
+  <!-- 2c. Dry Cooler -->
+  <rect class="panel" x="396" y="414" width="384" height="106" rx="8"/>
+  <text class="head" x="414" y="440">2c. Dry-cooler fans</text>
+  <text class="small" x="414" y="460">Vents any leftover heat to the outdoor air</text>
+
+  <rect class="cmd" x="414" y="474" width="348" height="32" rx="4"/>
+  <text class="code" x="426" y="495">40103 y_dry</text>
+  <text class="small" x="554" y="495">Fan speed (0 to 100%)</text>
+
+  <!-- COLUMN 3: District Network & Whole-Plant Gauges (x=892..1212) -->
+  <rect class="net" x="892" y="68" width="320" height="236" rx="8"/>
+  <text class="head" x="910" y="96">3. City heating network</text>
+  <text class="small" x="910" y="118">Buys heat at three temperature grades:</text>
+  <text class="tiny" x="910" y="140">Retur · Inblandning (74 °C) · Prima</text>
+
+  <rect class="cmd" x="910" y="158" width="284" height="56" rx="4"/>
+  <text class="code" x="922" y="180">40101 u_prod</text>
+  <text class="small" x="922" y="200">Which grade to sell (0–3)</text>
+
+  <rect class="read" x="910" y="228" width="284" height="56" rx="4"/>
+  <text class="code" x="922" y="250">40002 Q_sold</text>
+  <text class="small" x="922" y="270">Heat sold to city (kW)</text>
+
+  <!-- Site Weather & Grid Meter -->
+  <rect class="panel" x="892" y="340" width="320" height="180" rx="8"/>
+  <text class="head" x="910" y="368">Site weather &amp; power meter</text>
+  <text class="small" x="910" y="390">Whole-plant conditions</text>
+
+  <rect class="read" x="910" y="408" width="284" height="42" rx="4"/>
+  <text class="code" x="922" y="434">40014 T_amb</text>
+  <text class="small" x="1038" y="434">Outdoor air (°C)</text>
+
+  <rect class="read" x="910" y="460" width="284" height="42" rx="4"/>
+  <text class="code" x="922" y="486">40007 P_grid</text>
+  <text class="small" x="1038" y="486">Total power (kW)</text>
+
+  <!-- ARROWS -->
+  <!-- Loop to Heat Pump -->
+  <path class="ln" d="M268 216 L306 216 L306 138 L394 138" marker-end="url(#ar)"/>
+  <text class="tiny" x="314" y="128">to heat pump</text>
+
+  <!-- Loop to Dry Cooler -->
+  <path class="ln" d="M268 316 L306 316 L306 466 L394 466" marker-end="url(#ar)"/>
+  <text class="tiny" x="314" y="456">leftover heat</text>
+
+  <!-- Heat Pump to Network -->
+  <path class="ln" d="M780 138 L890 138" marker-end="url(#ar)"/>
+  <text class="tiny" x="804" y="128">hot water</text>
+
+  <!-- Heat Pump to Tank (Charge) -->
+  <path class="dash" d="M588 210 L588 246" marker-end="url(#ar)"/>
+  <text class="tiny" x="598" y="233">charge</text>
+
+  <!-- Tank to Network (Discharge) -->
+  <path class="dash" d="M780 318 L848 318 L848 210 L890 210" marker-end="url(#ar)"/>
+  <text class="tiny" x="786" y="308">discharge</text>
+</svg>

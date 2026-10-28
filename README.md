@@ -29,6 +29,10 @@ Code, data, and figures for the posts on [nouseng.co](https://nouseng.co).
   A 10 MW data-centre heat-recovery pod in Modelica, exported as an FMI 2.0 co-simulation FMU and
   stepped from Python over a Stockholm weather year for each Open District Heating product.
   [Read the post](https://nouseng.co/posts/dc2dh-plant/)
+- [DC2DH/post-2](DC2DH/post-2) — *Building a Digital Twin's Skeleton, End to End.*
+  The same StockholmPod.fmu wired into a Modbus TCP operating loop with a NiceGUI web console,
+  register bounds checking, and 30-second co-simulation ticks.
+  [Read the post](https://nouseng.co/posts/dc2dh-skeleton/)
 
 ## R2RDynamics
 

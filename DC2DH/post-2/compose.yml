@@ -1,0 +1,28 @@
+services:
+  gateway:
+    build: .
+    command: python -m gateway.server
+    ports:
+      - "5020:5020"
+
+  orchestrator:
+    build: .
+    command: python -m orchestrator.main
+    environment:
+      GATEWAY_HOST: gateway
+      GATEWAY_PORT: "5020"
+      SIM_SPEED_K: "6.0"
+    depends_on:
+      - gateway
+
+  console:
+    build: .
+    command: python -m console.app
+    environment:
+      GATEWAY_HOST: gateway
+      GATEWAY_PORT: "5020"
+      SIM_SPEED_K: "6.0"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - gateway
