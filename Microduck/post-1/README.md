@@ -1,20 +1,40 @@
-# Why We Built a Walking Robot Duck Twice
+# Why Rebuild a Walking Robot Duck in Modelica?
 
-Why rebuild the Microduck, a 14-servo biped whose policy was trained in
+Why rebuild the MicroDuck, a 14-servo biped whose policy was trained in
 MuJoCo, as a Modelica plant model, and how it was verified against MuJoCo
 before anything was added.
 
-[Read the post](https://nouseng.co/posts/microduck-why-modelica/)
+- **Article:** [Why Rebuild a Walking Robot Duck in Modelica?](https://nouseng.co/posts/microduck-why-modelica/)
+- **Modelica library (`MicroDuck` & `MicroDuckTest`):**
+  [`nouseng/libraries/RoboticsAtelier/MicroDuck`](https://github.com/nouseng/libraries/tree/main/RoboticsAtelier/MicroDuck)
+
+## Setup
+
+```bash
+pip install -r requirements.txt
+```
+
+Everything needed to run `why-modelica.ipynb` and `figures.py` is inside this
+folder (`fmu/`, `mujoco/`, `common.py`, and `data/`). No OpenModelica
+installation is required to run the notebook.
 
 ## Files
 
 - `why-modelica.ipynb` — notebook: runs this post's scenarios live through
-  `../fmu/` and `../mujoco/`, with the policy in Python.
+  `fmu/DuckPlant.fmu` and `mujoco/`, with the policy in Python.
 - `why-modelica.md` — the post.
 - `figures.py` — renders `images/walk.gif` and `images/walk-frame.png` from the
   MuJoCo walk at a 0.3 m/s command, draws `images/walking.png` and prints the
   numbers quoted in the post.
-- `data/walk_duck.csv` — the OpenModelica walk (Part 5 healthy run).
+- `common.py` — shared FMU (`walk_fmu`) and MuJoCo (`walk_mujoco`) runners and
+  plot style.
+- `requirements.txt` — Python dependencies.
+- `fmu/DuckPlant.fmu` — Model Exchange 2.0 FMU (Win64 + Linux64).
+- `mujoco/` — `velstand.onnx` (trained 50 Hz policy), `walk.ipynb`,
+  `build_duck.ipynb`, and `model/` (`scene_backlash.xml`,
+  `robot_groundcontact_backlash.xml`, and `assets/*.stl`).
+- `images/WalkingTest.svg` — diagram view of `MicroDuck.Examples.WalkingTest`.
+- `images/walk_modelica.gif` — animation of the OpenModelica walk.
+- `data/walk_duck.csv` — the OpenModelica walk (`0.797 m` after `6 s`; running
+  `DuckPlant.fmu` in Python with 1 ms Runge-Kutta gives `0.798 m`).
 - `data/walk_mujoco.csv` — the MuJoCo walk, written by `figures.py`.
-
-The numbers in the voltage table come from [Part 3](../post-3).

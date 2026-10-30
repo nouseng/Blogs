@@ -1,110 +1,138 @@
-# Why We Built a Walking Robot Duck Twice
+# Why Rebuild a Walking Robot Duck in Modelica?
 
 Vedat Senol and Ogulcan Isitman
 
-The Microduck already walks. Pollen Robotics trained its neural network policy
-in MuJoCo, released the model and the weights under Apache-2.0, and the robot
-walks on real hardware. So why did we spend weeks rebuilding it in Modelica?
+A flock of 25 cm
+[MicroDuck robots walked out on stage with Jensen Huang at NVIDIA GTC](https://www.youtube.com/watch?v=Nt6d62vN7CU).
+Pollen Robotics and Hugging Face released the
+[MuJoCo training environment](https://github.com/pollen-robotics/microduck_rl)
+and [neural network weights](https://huggingface.co/pollen-robotics/microduck-policies)
+under Apache-2.0, and the trained policy walks on real hardware. So why did we
+rebuild the robot in Modelica?
 
-Because "does it walk?" is only the first question.
+Because "does it walk on stage?" is only the first question.
 
-![The Microduck walking forward under its neural network policy in MuJoCo](images/walk.gif)
+![The MicroDuck walking forward under its neural network policy in MuJoCo](images/walk.gif)
 
-*Figure 1: The Microduck walking under its trained policy at a 0.3 m/s forward
+*Figure 1: The MicroDuck walking under its trained policy at a 0.3 m/s forward
 command, rendered in MuJoCo.*
 
 ## Two Simulators, Two Jobs
 
-The Microduck is a 25 cm biped with 14 Dynamixel XL330 servos and a modelled
+The MicroDuck is a 25 cm biped with 14 Dynamixel XL330 servos and a modelled
 mass of 0.737 kg. Its policy reads the IMU and joint states 50 times a second
-and sends 14 joint targets back. MuJoCo is the right tool to train it. It runs
-a 6 s walk in 0.55 s, and reinforcement learning needs millions of those.
+and sends 14 joint targets back. MuJoCo is the right tool to train it. On a
+desktop CPU it runs a 6 s walk in 0.55 s, and reinforcement learning needs
+millions of those.
 
-Speed comes at a price. In MuJoCo the servo is a parameter set tuned so the
-training converges. Questions an engineer asks next sit outside that model.
-What happens when the battery drains from 8.2 V to 6.5 V? How much heat does a
-knee motor make on a long walk? If one joint goes limp, does the robot fall?
+Speed comes at a price. MuJoCo has no electrical, thermal or 1D drivetrain
+domain. In [`microduck_rl`](https://github.com/pollen-robotics/microduck_rl),
+the built-in actuator is disabled and a Python callback runs before every
+`mj_step` to compute motor torque from the
+[BAM XL330 model](https://github.com/Rhoban/bam) at a fixed episode voltage.
+Ground contact is C code inside the solver.
 
-Answering those needs a plant model: equations for the motor, the gear, the
-contact and the supply, written so that changing one physical value changes the
-physics downstream. Modelica is built for that. MultiBody assembles the
-equations of motion from the kinematic tree, and a single `connect` between a
-motor and a joint gives the force balance without rewriting either side.
+Rebuilding the robot as an equation-based plant in Modelica opens what a
+rigid-body callback setup cannot reach:
+
+- **Mechanics, electronics and heat in one solver.** Connect all 14 servos to
+  one two-cell battery pack (`useBattery = true`) and pack voltage sags whenever
+  the motors pull a current spike together, lowering torque at that same
+  instant. Enable the servo thermal network (`useThermal = true`) and both
+  winding copper loss ($R i^2$) and gearbox friction ($\tau_{\mathrm{f}}\omega$)
+  heat the servo, raising copper resistance by 0.39% per kelvin. Modelica
+  solves all three domains together at every step, without callback lag.
+- **Gear play and drivetrains without extra 3D joints.** Every servo has 2° of
+  gear play between motor and link, with the encoder on the link side. Because
+  MuJoCo only has 3D joints, the training model had to insert 14 extra 3D hinge
+  joints into the robot's body tree to mimic that play and add pairs of joint
+  angles in Python to get the encoder reading. Modelica keeps the 14 physical
+  3D joints and puts the motor, the 2° play and the encoder on each joint's 1D
+  drive shaft.
+- **Open, replaceable physics equations.** In MuJoCo, ground contact is
+  compiled C code inside the solver: you can tune its parameters, whereas
+  changing the law means editing the C engine. In Modelica, contact is a
+  60-line equation block (`PointContact`), so you can swap a spring-damper sole
+  for soft pyramidal contact without touching the rest of the robot.
+- **Inverse dynamics and FMU export.** Because the plant is written as
+  equations rather than a forward step function, the compiler can invert a
+  joint from motion to required motor voltage and export the whole robot as a
+  standalone FMU (`DuckPlant.fmu`) for Python, Simulink or hardware-in-the-loop
+  tests.
+
+![Diagram view of the WalkingTest model in OpenModelica](images/WalkingTest.svg)
+
+*Figure 2: Diagram view of `WalkingTest` in OpenModelica, wiring the 3D
+multibody `Robot` plant, IMU and joint sensors to the 50 Hz `WalkingPolicy`
+block.*
 
 ## Verify Before Adding Anything
 
 A second model is worthless if it disagrees with the first one for reasons
-nobody understands. So before adding a single new feature, we matched the
+nobody understands. Before extending the plant, we matched the baseline
 Modelica model against the MuJoCo model it was generated from.
 
-The library is generated from the same MJCF file the policy was trained on,
-so masses, inertias and joint frames are identical by construction. Forward
-kinematics agree to 4e-13 m. The servo uses the identified XL330 motor model
-from the [BAM project](https://github.com/Rhoban/bam): torque constant
-0.346 N·m/A, resistance 2.50 Ω, 2° of gear play and a random command delay
-averaging 22.5 ms, as in training.
+At [Nous Engineering & Research](https://nouseng.co), we built the `MicroDuck`
+library directly from the training MJCF file, so masses, inertias and joint
+frames are identical by construction. Forward kinematics agree to
+$4 \times 10^{-13}\ \mathrm{m}$. Each joint drives a 3D revolute joint through a
+`PositionServo` with the identified XL330 parameters (torque constant
+0.346 N·m/A, winding resistance 2.50 Ω, rotor inertia 0.00157 kg·m², Coulomb
+and viscous friction) and 2° of gear play. Under each sole sit eight
+`PointContact` elements implementing MuJoCo's soft pyramidal contact law. The
+50 Hz `WalkingPolicy` block applies the mean training command delay of 22.5 ms.
 
-Then the real test. Same policy, same command, two simulators. At a 0.3 m/s
-command both step at 2.0 Hz and walk at 0.131 and 0.132 m/s, and after 6 s the
-Modelica robot has covered 0.785 m against 0.799 m in MuJoCo.
+Same policy, same 0.3 m/s command, two simulators. After 6 s the Modelica robot
+has covered 0.797 m against 0.799 m in MuJoCo. Its 22 stance touchdowns land
+25 ms from MuJoCo's on average, at a mean trunk height of 118 mm, and over the
+last 4 s it walks at 0.137 m/s against 0.132 m/s.
+
+![The MicroDuck walking forward under its neural network policy in OpenModelica](images/walk_modelica.gif)
+
+*Figure 3: The Modelica MicroDuck walking under the same trained policy at a
+0.3 m/s forward command, rendered in OpenModelica.*
 
 ![Forward position and trunk height over a 6 s walk, Modelica against MuJoCo](images/walking.png)
 
-*Figure 2: Forward position (top) and trunk height (bottom) over a 6 s walk.
-Solid: the Modelica Duck library. Dashed: MuJoCo, same policy and command.*
+*Figure 4: Forward position (top) and trunk height (bottom) over a 6 s walk.
+Solid: the Modelica MicroDuck library. Dashed: MuJoCo, same policy and command.*
 
-## The Match Was Not Free
+## What the Plant Answers Next
 
-The first walking run did not match at all. Modelica walked at 0.25 m/s,
-MuJoCo at 0.17 m/s. Same robot, same network.
+In Modelica a 6 s walk takes about 6 s on a desktop CPU against 0.55 s in
+MuJoCo. Nobody should train a policy this way. Once the policy is trained and
+the plant is verified, the equation-based model answers hardware and control
+questions across domains:
 
-We first tried tuning the contact stiffness, and got walking right while a
-drop test went badly wrong. Tuning hid the problem. The cause turned out to be
-the ground. In MuJoCo the stance foot slips about 43 mm/s, whereas our
-spring-damper soles slipped 6.5 mm/s. The policy had learned to walk on
-MuJoCo's soft contact, slip included. A policy trained in one simulator has
-learned that simulator's contact law, and a different law is a different robot.
+- **How the policy walks on servos too soft to stand on.** At a gain
+  register of 800 (2.36 N·m/rad) the robot stands upright. At the walking gain
+  of 200 (0.589 N·m/rad, four times softer), asked to stand still, it tips past
+  30° in 0.74 s. During the walk the policy swings its angle targets 24° RMS
+  ahead of the knees, using position error as a torque command while staying
+  below 30% of the 1.01 N·m stall torque.
+- **Battery discharge, current spikes and voltage sag.** With the 2S
+  pack (`useBattery = true`) at `soc0` = 0.68 (7.40 V open-circuit), the 0.92 A
+  touchdown spike across all 14 servos pulls terminal voltage down to 7.34 V (a
+  64.5 mV sag), while the servos draw 2.26 W on average and drain 0.019% of the
+  2.6 Ah pack every 6 s.
+- **Policy sensitivity to the ground law.** Swapping MuJoCo's soft
+  contact (where the stance foot slips 43 mm/s) for a firmer spring-damper
+  floor (6.5 mm/s slip) makes the same policy walk nearly 50% faster, showing
+  how strongly a learned gait depends on the contact compliance it was trained
+  on.
+- **Servo heating, torque fade and faults.** With the thermal network
+  enabled (`useThermal = true`), the 14 servos dissipate 1.79 W in copper and
+  0.37 W in gearbox friction (2.17 W total), warming the knee windings by 1.4 to
+  1.7 K in 6 s. On a long walk, climbing from 20 °C to the XL330's 70 °C
+  firmware limit raises copper resistance by 20% (softening the joint) and then
+  trips `Torque Enable = 0`, which collapses the robot in 0.83 s. Even before a
+  trip, a weakened left knee shifts 20% more copper heating (0.42 to 0.50 W)
+  onto the opposite right knee.
 
-The fix was to reimplement MuJoCo's soft contact formulation point by point,
-eight points under each sole. After that, standing, dropping, sliding and
-walking all matched at the nominal friction. Part 4 of this series tells that
-story in detail.
-
-It is not a perfect match everywhere. At a 0.4 m/s command Modelica walks
-0.191 m/s against MuJoCo's 0.175 m/s, and that gap is still open. We prefer
-stating it to hiding it.
-
-## What It Costs, What It Buys
-
-Modelica is the slow tool here. A 6 s walk takes about 15 s with fixed-step
-Runge-Kutta against 0.55 s in MuJoCo. Nobody should train a policy this way.
-
-What it buys is the plant. A first example: we swept the servo supply across the
-range the policy was trained on, with everything else fixed.
-
-| Supply | Walking speed | Mean servo power |
-| :---: | :---: | :---: |
-| 8.2 V | 0.137 m/s | 2.63 W |
-| 7.4 V | 0.132 m/s | 2.35 W |
-| 6.5 V | 0.128 m/s | 2.14 W |
-
-A drained pack costs 7% of walking speed, and peak supply current rises from
-0.90 A to 1.18 A. This is an ideal supply. Whether a real pack's sag
-changes the picture is Part 3.
-
-The split we recommend is the one this project followed. Train in the fast
-contact engine, then verify and extend the plant in an equation-based model. We
-use the same split for floating offshore wind turbines, where a fast load tool
-runs thousands of cases and a detailed subsystem model checks the ones that
-matter.
-
-## The Series
-
-1. Why build it twice (this post)
-2. The servo is a motor, not a gain
-3. What an empty battery does to the gait
-4. Same policy, 50% faster: the contact law was the model
-5. When a servo fails
-
-The model runs in OpenModelica with the Modelica Standard Library. If a
-training simulator and your hardware disagree, that gap is where we work.
+MuJoCo and Modelica solve different halves of the problem. Train the policy in
+the fast contact engine, then bring the weights into an equation-based plant
+where the drivetrains, the battery, the thermal network and the contact law are
+open equations you can inspect and extend. The `MicroDuck` library is developed
+by [Nous Engineering & Research](https://nouseng.co) and runs in OpenModelica
+with the Modelica Standard Library. If a training simulator and your hardware
+disagree, that gap is where we work.

@@ -1,12 +1,16 @@
 """Plot style, data loading and servo constants shared by the figures.py scripts."""
+import sys
 from pathlib import Path
 
 import matplotlib
 import numpy as np
 import pandas as pd
 
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
+if "ipykernel" in sys.modules:
+    matplotlib.use("module://matplotlib_inline.backend_inline")
+else:
+    matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 
 BLUE, ORANGE, GREEN, PINK, GREY = "#0072B2", "#D55E00", "#009E73", "#CC79A7", "#6b6b6b"
 # Rhoban/bam bam/params/xl330/m6.json
@@ -43,30 +47,20 @@ def speed(df):
     return (df["distance"].iloc[-1] - np.interp(2, df["time"], df["distance"])) / 4
 
 
-ROOT = Path(__file__).parent
+ROOT = Path(__file__).resolve().parent
+MUJOCO = ROOT / "mujoco"
 FMU_PLANT = ROOT / "fmu" / "DuckPlant.fmu"
-FMU_STAND = ROOT / "fmu" / "DuckStand.fmu"
-POLICY = ROOT / "mujoco" / "velstand.onnx"
-# Home pose of the joints, Duck.Components.Robot.q0, in the order of JOINTS
+POLICY = MUJOCO / "velstand.onnx"
+# Home pose of the joints, MicroDuck.Components.Robot.q0, in the order of JOINTS
 HOME = np.array([0, -0.0873, -0.4579, -0.0049, 0.453, 0.3491, 0.3491, 0, 0, 0, 0.0873, 0.4579, 0.0049, -0.453])
-# Policy timing and filters as in Duck.Components.WalkingPolicy and the training environment
+# Policy timing and filters as in MicroDuck.Components.WalkingPolicy and the training environment
 PERIOD = 0.02
-COMMAND_DELAY = 0.0225
+COMMAND_DELAY = 0.023  # 22.5 ms delay applied at the next 1 ms fixed step, as in OpenModelica
 ACTION_SCALE = 0.9
 TARGET_FILTER = np.array([0.5 if 5 <= j <= 8 else 0.7 for j in range(14)])
 PLANT_OUTPUTS = (["x", "z", "pitch", "batteryCurrent"]
                  + [f"{name}[{i}]" for name in ("gyro", "gravity") for i in range(1, 4)]
                  + [f"{name}[{i}]" for name in ("q", "w", "motorCurrent", "servoTorque") for i in range(1, 15)])
-
-
-def simulate(fmu, stop_time, outputs, interval=0.001, **parameters):
-    """Run an FMU as Model Exchange with CVODE and return the outputs as a DataFrame."""
-    from fmpy import simulate_fmu
-
-    result = simulate_fmu(str(fmu), fmi_type="ModelExchange", solver="CVode", relative_tolerance=1e-6,
-                          stop_time=stop_time, output_interval=interval, start_values=parameters,
-                          output=outputs)
-    return pd.DataFrame({name: result[name] for name in result.dtype.names})
 
 
 class Plant:
@@ -90,6 +84,8 @@ class Plant:
         self.fmu.instantiate()
         self.fmu.setupExperiment(startTime=0)
         if parameters:
+            if "supply" in parameters and "kneeSupply" not in parameters:
+                parameters = {**parameters, "kneeSupply": parameters["supply"]}
             self.fmu.setReal([self.vr[k] for k in parameters], [float(v) for v in parameters.values()])
         self.q_ref = HOME.copy()
         self.fmu.setReal(self.in_vr, list(HOME))
@@ -172,7 +168,7 @@ def walk_fmu(speed_command=0.3, duration=6.0, max_step=0.001, command_delay=COMM
     action, previous_speed, target = np.zeros(14), np.zeros(14), None
     pending = []  # (time the target reaches the servos, target)
     record = [[0.0, *plant.outputs(), *HOME]]
-    for k in range(int(round(duration / PERIOD))):
+    for k in range(round(duration / PERIOD)):
         t_k = k * PERIOD
         y = plant.outputs()
         gyro = y[[index[f"gyro[{i}]"] for i in range(1, 4)]]
@@ -206,27 +202,22 @@ def walk_fmu(speed_command=0.3, duration=6.0, max_step=0.001, command_delay=COMM
     return df.rename(columns={"x": "distance", "z": "trunkHeight", "pitch": "trunkPitch"})
 
 
-def stand_fmu(gain, stop_time=3.0):
-    """Hold the home pose at one servo gain register value."""
-    df = simulate(FMU_STAND, stop_time, ["z", "pitch"], interval=0.002, gain=gain)
-    return df.rename(columns={"z": "trunkHeight", "pitch": "trunkPitch"})
-
-
 def mujoco_walk():
     """Load the MuJoCo walk of mujoco/walk.ipynb (model, BAM servo, policy loop) as a namespace."""
     import contextlib
     import io
     import json
 
-    nb = json.loads((ROOT / "mujoco" / "walk.ipynb").read_text(encoding="utf-8"))
+    nb = json.loads((MUJOCO / "walk.ipynb").read_text(encoding="utf-8"))
     namespace = {}
     for cell in nb["cells"]:
         source = "".join(cell["source"])
         if cell["cell_type"] == "code" and source.startswith(("from pathlib", "def load", "# bam/", "PERIOD")):
             with contextlib.redirect_stdout(io.StringIO()):  # the cells print model summaries
-                exec(source.replace("from IPython.display import Video", ""), namespace)
-            namespace["SCENE"] = str(ROOT / "mujoco" / "model" / "scene_backlash.xml")
-            namespace["ONNX"] = str(ROOT / "mujoco" / "velstand.onnx")
+                cleaned = source.replace("from IPython.display import Video", "").replace("import imageio", "")
+                exec(cleaned, namespace)  # noqa: S102
+            namespace["SCENE"] = str(MUJOCO / "model" / "scene_backlash.xml")
+            namespace["ONNX"] = str(MUJOCO / "velstand.onnx")
     return namespace
 
 

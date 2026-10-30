@@ -3,14 +3,10 @@
 The walk GIF and its still frame are rendered from the MuJoCo walk; the comparison plot uses the
 archived OpenModelica walk in data/walk_duck.csv and the MuJoCo walk, saved to data/walk_mujoco.csv.
 """
-import sys
-from pathlib import Path
+import mujoco
+from PIL import Image
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from common import *  # noqa: E402,F403
-
-import mujoco  # noqa: E402
-from PIL import Image  # noqa: E402
+from common import *  # noqa: F403
 
 DATA, IMAGES = folders(__file__)
 WIDTH, HEIGHT = 960, 540
@@ -44,7 +40,7 @@ mj.to_csv(DATA / "walk_mujoco.csv", index=False)
 duck = read(DATA / "walk_duck.csv")
 
 fig, (a1, a2) = plt.subplots(2, 1, figsize=(6.5, 4.3), sharex=True)
-a1.plot(duck["time"], duck["distance"], color=BLUE, label="Duck library")
+a1.plot(duck["time"], duck["distance"], color=BLUE, label="MicroDuck library")
 a1.plot(mj["time"], mj["distance"], color=GREY, ls="--", lw=1.5, label="MuJoCo")
 a2.plot(duck["time"], 1e3 * duck["trunkHeight"], color=BLUE)
 a2.plot(mj["time"], 1e3 * mj["trunkHeight"], color=GREY, ls="--", lw=1.5)
@@ -55,5 +51,5 @@ a2.set_xlabel("Time [s]")
 fig.tight_layout()
 fig.savefig(IMAGES / "walking.png")
 
-for name, df in (("Duck library", duck), ("MuJoCo", mj)):
+for name, df in (("MicroDuck library", duck), ("MuJoCo", mj)):
     print(f"{name}: {speed(df):.3f} m/s over the last 4 s, {df['distance'].iloc[-1]:.3f} m after 6 s")

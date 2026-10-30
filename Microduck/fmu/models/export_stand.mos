@@ -1,6 +1,0 @@
-loadModel(Modelica, {"4.1.0"});
-loadFile("../../Duck/package.mo");
-loadFile("DuckStand.mo");
-getErrorString();
-buildModelFMU(DuckStand, version = "2.0", fmuType = "me_cs", platforms = {"static"});
-getErrorString();
