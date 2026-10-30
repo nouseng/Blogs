@@ -2,6 +2,7 @@
 
 The walk GIF and its still frame are rendered from the MuJoCo walk; the comparison plot uses the
 archived OpenModelica walk in data/walk_duck.csv and the MuJoCo walk, saved to data/walk_mujoco.csv.
+The knee tracking and copper-heating shift plots are simulated live from fmu/DuckPlant.fmu.
 """
 import mujoco
 from PIL import Image
@@ -53,3 +54,43 @@ fig.savefig(IMAGES / "walking.png")
 
 for name, df in (("MicroDuck library", duck), ("MuJoCo", mj)):
     print(f"{name}: {speed(df):.3f} m/s over the last 4 s, {df['distance'].iloc[-1]:.3f} m after 6 s")
+
+# FMU runs for knee tracking and copper-heating shift
+fmu_nom = walk_fmu()
+fmu_limp = walk_fmu(kneeGain=0)
+
+t = fmu_nom["time"].to_numpy()
+win = (t >= 2.0) & (t <= 4.0)
+q_deg = np.degrees(cols(fmu_nom, "q"))
+qref_deg = np.degrees(cols(fmu_nom, "qRef"))
+tau = cols(fmu_nom, "servoTorque")
+
+fig, (a1, a2) = plt.subplots(2, 1, figsize=(6.5, 4.1), sharex=True)
+a1.plot(t[win], qref_deg[win, 3], color=ORANGE, ls="--", lw=1.6, label="Target $q_{\\mathrm{ref}}$")
+a1.plot(t[win], q_deg[win, 3], color=BLUE, label="Measured $q$")
+a1.set_ylim(-38, 62)
+a1.set_ylabel("Left knee angle [deg]")
+a1.legend(loc="upper right", ncol=2)
+a2.plot(t[win], tau[win, 3], color=BLUE)
+a2.set_ylabel("Servo torque [N·m]")
+a2.set_xlabel("Time [s]")
+fig.tight_layout()
+fig.savefig(IMAGES / "knee_tracking.png")
+
+late = t >= 2.0
+cu_nom = (RESISTANCE * cols(fmu_nom, "motorCurrent")[late] ** 2).mean(0)
+cu_limp = (RESISTANCE * cols(fmu_limp, "motorCurrent")[fmu_limp["time"] >= 2.0] ** 2).mean(0)
+leg_idx = [0, 1, 2, 3, 4, 9, 10, 11, 12, 13]
+labels = ["L yaw", "L roll", "L pitch", "L knee", "L ankle",
+          "R yaw", "R roll", "R pitch", "R knee", "R ankle"]
+x_pos = np.arange(len(leg_idx))
+w_bar = 0.36
+
+fig, ax = plt.subplots(figsize=(6.5, 3.2))
+ax.bar(x_pos - w_bar / 2, cu_nom[leg_idx], w_bar, color=BLUE, label="Nominal (7.4 V)")
+ax.bar(x_pos + w_bar / 2, cu_limp[leg_idx], w_bar, color=ORANGE, label="Unpowered left knee (kneeGain=0)")
+ax.set_xticks(x_pos, labels, rotation=25, ha="right")
+ax.set_ylabel("Mean copper loss $Ri^2$ [W]")
+ax.legend(loc="upper left")
+fig.tight_layout()
+fig.savefig(IMAGES / "copper_shift.png")

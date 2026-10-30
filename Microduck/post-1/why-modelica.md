@@ -36,29 +36,18 @@ Rebuilding the robot as an equation-based plant in Modelica opens what a
 rigid-body callback setup cannot reach:
 
 - **Mechanics, electronics and heat in one solver.** Connect all 14 servos to
-  one two-cell battery pack (`useBattery = true`) and pack voltage sags whenever
-  the motors pull a current spike together, lowering torque at that same
-  instant. Enable the servo thermal network (`useThermal = true`) and both
-  winding copper loss ($R i^2$) and gearbox friction ($\tau_{\mathrm{f}}\omega$)
-  heat the servo, raising copper resistance by 0.39% per kelvin. Modelica
-  solves all three domains together at every step, without callback lag.
-- **Gear play and drivetrains without extra 3D joints.** Every servo has 2° of
-  gear play between motor and link, with the encoder on the link side. Because
-  MuJoCo only has 3D joints, the training model had to insert 14 extra 3D hinge
-  joints into the robot's body tree to mimic that play and add pairs of joint
-  angles in Python to get the encoder reading. Modelica keeps the 14 physical
-  3D joints and puts the motor, the 2° play and the encoder on each joint's 1D
-  drive shaft.
-- **Open, replaceable physics equations.** In MuJoCo, ground contact is
-  compiled C code inside the solver: you can tune its parameters, whereas
-  changing the law means editing the C engine. In Modelica, contact is a
-  60-line equation block (`PointContact`), so you can swap a spring-damper sole
-  for soft pyramidal contact without touching the rest of the robot.
-- **Inverse dynamics and FMU export.** Because the plant is written as
-  equations rather than a forward step function, the compiler can invert a
-  joint from motion to required motor voltage and export the whole robot as a
-  standalone FMU (`DuckPlant.fmu`) for Python, Simulink or hardware-in-the-loop
-  tests.
+  one two-cell battery pack (`useBattery = true`) and enable the servo thermal
+  network (`useThermal = true`): pack voltage sag, winding copper loss ($R i^2$)
+  and gearbox friction ($\tau_{\mathrm{f}}\omega$) are solved together with the
+  3D motion at every step, without callback lag.
+- **Gear play and drivetrains on a 1D shaft.** Instead of inserting 14 extra 3D
+  hinge joints into the robot's body tree to mimic 2° of gear play, Modelica
+  keeps the 14 physical 3D joints and puts the motor, backlash and encoder on
+  each joint's 1D drive shaft.
+- **Open equations and FMU export.** Ground contact is a 60-line equation block
+  (`PointContact`) you can swap without editing a C solver, and the compiler can
+  invert joints from motion to voltage or export the whole robot as a standalone
+  FMU (`DuckPlant.fmu`) for Python and hardware-in-the-loop tests.
 
 ![Diagram view of the WalkingTest model in OpenModelica](images/WalkingTest.svg)
 
@@ -101,33 +90,32 @@ Solid: the Modelica MicroDuck library. Dashed: MuJoCo, same policy and command.*
 
 In Modelica a 6 s walk takes about 6 s on a desktop CPU against 0.55 s in
 MuJoCo. Nobody should train a policy this way. Once the policy is trained and
-the plant is verified, the equation-based model answers hardware and control
-questions across domains:
+the plant is verified, `DuckPlant.fmu` answers actuator and power questions
+directly from Python:
 
-- **How the policy walks on servos too soft to stand on.** At a gain
-  register of 800 (2.36 N·m/rad) the robot stands upright. At the walking gain
-  of 200 (0.589 N·m/rad, four times softer), asked to stand still, it tips past
-  30° in 0.74 s. During the walk the policy swings its angle targets 24° RMS
-  ahead of the knees, using position error as a torque command while staying
-  below 30% of the 1.01 N·m stall torque.
-- **Battery discharge, current spikes and voltage sag.** With the 2S
-  pack (`useBattery = true`) at `soc0` = 0.68 (7.40 V open-circuit), the 0.92 A
-  touchdown spike across all 14 servos pulls terminal voltage down to 7.34 V (a
-  64.5 mV sag), while the servos draw 2.26 W on average and drain 0.019% of the
-  2.6 Ah pack every 6 s.
-- **Policy sensitivity to the ground law.** Swapping MuJoCo's soft
-  contact (where the stance foot slips 43 mm/s) for a firmer spring-damper
-  floor (6.5 mm/s slip) makes the same policy walk nearly 50% faster, showing
-  how strongly a learned gait depends on the contact compliance it was trained
-  on.
-- **Servo heating, torque fade and faults.** With the thermal network
-  enabled (`useThermal = true`), the 14 servos dissipate 1.79 W in copper and
-  0.37 W in gearbox friction (2.17 W total), warming the knee windings by 1.4 to
-  1.7 K in 6 s. On a long walk, climbing from 20 °C to the XL330's 70 °C
-  firmware limit raises copper resistance by 20% (softening the joint) and then
-  trips `Torque Enable = 0`, which collapses the robot in 0.83 s. Even before a
-  trip, a weakened left knee shifts 20% more copper heating (0.42 to 0.50 W)
-  onto the opposite right knee.
+- **Soft servos used as torque commands.** At the walking gain register of 200
+  (0.589 N·m/rad, four times softer than the standing gain of 800), the policy
+  swings its angle targets 24° RMS ahead of the knees, using position error as a
+  torque command while staying below 30% of the 1.01 N·m stall torque.
+- **Supply voltage and coupled battery sag.** Dropping the pack from 7.4 V to
+  6.5 V cuts mean servo power from 2.26 W to 1.85 W, and on the coupled 2S pack
+  (`useBattery = true`) the 0.92 A touchdown spike pulls terminal voltage down
+  by 64.5 mV across all 14 servos simultaneously.
+- **Servo heating and fault load shift.** With `useThermal = true`, the 14
+  servos dissipate 2.17 W (1.79 W in copper, 0.37 W in friction), and an
+  unpowered left knee (`kneeGain = 0`) shifts 83% more copper heating (0.41 to
+  0.75 W) onto the opposite right knee.
+
+![Left knee target angle, measured angle and servo torque over a 2 s stride window](images/knee_tracking.png)
+
+*Figure 5: Left knee target $q_{\mathrm{ref}}$ against measured angle $q$ (top)
+and resulting servo torque (bottom) at gain 200, stepped from `DuckPlant.fmu`.*
+
+![Mean copper loss across the 10 leg servos, nominal 7.4 V against an unpowered left knee](images/copper_shift.png)
+
+*Figure 6: Mean winding copper loss $Ri^2$ across the 10 leg servos (`t >= 2 s`).
+An unpowered left knee (`kneeGain = 0`) shifts 83% more heating onto the right
+knee.*
 
 MuJoCo and Modelica solve different halves of the problem. Train the policy in
 the fast contact engine, then bring the weights into an equation-based plant

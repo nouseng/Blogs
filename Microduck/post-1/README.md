@@ -25,7 +25,8 @@ installation is required to run the notebook.
   `fmu/DuckPlant.fmu` and `mujoco/`, with the policy in Python.
 - `why-modelica.md` — the post.
 - `figures.py` — renders `images/walk.gif` and `images/walk-frame.png` from the
-  MuJoCo walk at a 0.3 m/s command, draws `images/walking.png` and prints the
+  MuJoCo walk at a 0.3 m/s command, draws `images/walking.png`,
+  `images/knee_tracking.png` and `images/copper_shift.png`, and prints the
   numbers quoted in the post.
 - `common.py` — shared FMU (`walk_fmu`) and MuJoCo (`walk_mujoco`) runners and
   plot style.
