@@ -132,7 +132,25 @@ questions across domains:
 MuJoCo and Modelica solve different halves of the problem. Train the policy in
 the fast contact engine, then bring the weights into an equation-based plant
 where the drivetrains, the battery, the thermal network and the contact law are
-open equations you can inspect and extend. The `MicroDuck` library is developed
-by [Nous Engineering & Research](https://nouseng.co) and runs in OpenModelica
-with the Modelica Standard Library. If a training simulator and your hardware
-disagree, that gap is where we work.
+open equations you can inspect and extend. The
+[`MicroDuck` library](https://github.com/nouseng/libraries/tree/main/RoboticsAtelier/MicroDuck)
+is developed by [Nous Engineering & Research](https://nouseng.co) and runs in
+OpenModelica with the Modelica Standard Library. If a training simulator and
+your hardware disagree, that gap is where we work.
+
+## References
+
+- **MuJoCo robot model and meshes:**
+  [`pollen-robotics/microduck_rl`](https://github.com/pollen-robotics/microduck_rl)
+  (`src/mjlab_microduck/robot/microduck/`, Apache-2.0).
+- **Trained neural network walking policy (`velstand.onnx`):**
+  [`pollen-robotics/microduck-policies`](https://huggingface.co/pollen-robotics/microduck-policies)
+  (Apache-2.0).
+- **Identified Dynamixel XL330 actuator model:**
+  [`Rhoban/bam`](https://github.com/Rhoban/bam)
+  (`bam/params/xl330/m6.json`, Apache-2.0).
+- **Modelica plant library (`MicroDuck` & `MicroDuckTest`):**
+  [`nouseng/libraries/RoboticsAtelier/MicroDuck`](https://github.com/nouseng/libraries/tree/main/RoboticsAtelier/MicroDuck)
+  (BSD 3-Clause).
+- **Post 1 notebook, FMU and MuJoCo files:**
+  [`nouseng/Blogs/Microduck/post-1`](https://github.com/nouseng/Blogs/tree/main/Microduck/post-1).

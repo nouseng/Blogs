@@ -54,4 +54,4 @@ Code, data, and figures for the posts on [nouseng.co](https://nouseng.co).
 - [`Microduck/post-1`](Microduck/post-1) — *Why Rebuild a Walking Robot Duck in Modelica?* The
   Pollen Robotics MicroDuck biped rebuilt as a Modelica plant model, exported as an FMI 2.0 Model
   Exchange FMU and verified against MuJoCo.
-  [Read the post](https://nouseng.co/posts/microduck-why-modelica/)
+  [Read the post](https://nouseng.co/libraries/atelier/microduck/why-modelica/)

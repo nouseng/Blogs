@@ -4,7 +4,8 @@ Why rebuild the MicroDuck, a 14-servo biped whose policy was trained in
 MuJoCo, as a Modelica plant model, and how it was verified against MuJoCo
 before anything was added.
 
-- **Article:** [Why Rebuild a Walking Robot Duck in Modelica?](https://nouseng.co/posts/microduck-why-modelica/)
+- **Article:**
+  [Why Rebuild a Walking Robot Duck in Modelica?](https://nouseng.co/libraries/atelier/microduck/why-modelica/)
 - **Modelica library (`MicroDuck` & `MicroDuckTest`):**
   [`nouseng/libraries/RoboticsAtelier/MicroDuck`](https://github.com/nouseng/libraries/tree/main/RoboticsAtelier/MicroDuck)
 
@@ -38,3 +39,18 @@ installation is required to run the notebook.
 - `data/walk_duck.csv` — the OpenModelica walk (`0.797 m` after `6 s`; running
   `DuckPlant.fmu` in Python with 1 ms Runge-Kutta gives `0.798 m`).
 - `data/walk_mujoco.csv` — the MuJoCo walk, written by `figures.py`.
+
+## References and licences
+
+- **MuJoCo robot model and meshes (`mujoco/model/`):**
+  [`pollen-robotics/microduck_rl`](https://github.com/pollen-robotics/microduck_rl)
+  (`src/mjlab_microduck/robot/microduck/`, commit `273afe0b`, Apache-2.0).
+- **Trained walking policy (`mujoco/velstand.onnx`):**
+  [`pollen-robotics/microduck-policies`](https://huggingface.co/pollen-robotics/microduck-policies)
+  (`velstand.onnx`, Apache-2.0).
+- **Identified Dynamixel XL330 servo parameters:**
+  [`Rhoban/bam`](https://github.com/Rhoban/bam)
+  (`bam/params/xl330/m6.json`, Apache-2.0).
+- **Modelica plant library (`MicroDuck` & `MicroDuckTest`):**
+  [`nouseng/libraries/RoboticsAtelier/MicroDuck`](https://github.com/nouseng/libraries/tree/main/RoboticsAtelier/MicroDuck)
+  (BSD 3-Clause).
