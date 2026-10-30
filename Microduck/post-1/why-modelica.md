@@ -56,14 +56,14 @@ A second model is worthless if it disagrees with the first one for reasons
 nobody understands. Before extending the plant, we matched the baseline
 Modelica model against the MuJoCo model it was generated from.
 
-At [Nous Engineering & Research](https://nouseng.co), we built the `MicroDuck`
-library directly from the training MJCF file, so masses, inertias and joint
-frames are identical by construction. Forward kinematics agree to
-$4 \times 10^{-13}\ \mathrm{m}$. Each joint drives a 3D revolute joint through a
-`PositionServo` with the identified XL330 parameters (torque constant
-0.346 N·m/A, winding resistance 2.50 Ω, rotor inertia 0.00157 kg·m², Coulomb
-and viscous friction) and 2° of gear play. Under each sole sit eight
-`PointContact` elements implementing MuJoCo's soft pyramidal contact law.
+At [Nous Engineering & Research](https://nouseng.co), we generated the
+`MicroDuck` library directly from the training MJCF file, so every link mass,
+inertia tensor, joint axis and sensor frame matches the MuJoCo model. Each
+joint drives a 3D revolute joint through a `PositionServo` with the identified
+XL330 parameters (torque constant 0.346 N·m/A, winding resistance 2.50 Ω, rotor
+inertia 0.00157 kg·m², Coulomb and viscous friction) and 2° of gear play. Under
+each sole sit eight `PointContact` elements implementing MuJoCo's soft
+pyramidal contact law.
 
 First, drop the robot from 2.8 mm onto its soles with the servos holding the
 home pose at `positionGain = 800`. Both simulators peak near 0.05 s (8.4 N
