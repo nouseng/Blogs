@@ -80,7 +80,9 @@ Next, close the loop with the 50 Hz `WalkingPolicy` block and its 22.5 ms
 training command delay. Same policy, same 0.3 m/s command, two simulators.
 After 6 s the Modelica robot has covered 0.797 m against 0.799 m in MuJoCo. Its
 22 stance touchdowns land 25 ms from MuJoCo's on average, at a mean trunk height
-of 118 mm, and over the last 4 s it walks at 0.137 m/s against 0.132 m/s.
+of 118 mm, and over the last 4 s it walks at 0.137 m/s against 0.132 m/s. We
+will unpack the remaining differences between the two curves in detail in the
+upcoming posts.
 
 ![The MicroDuck walking forward under its neural network policy in OpenModelica](images/walk_modelica.gif)
 
@@ -97,7 +99,7 @@ Solid: the Modelica MicroDuck library. Dashed: MuJoCo, same policy and command.*
 In Modelica a 6 s walk takes about 6 s on a desktop CPU against 0.55 s in
 MuJoCo. Nobody should train a policy this way. Once the policy is trained and
 the plant is verified, the equation-based model answers actuator and power
-questions across domains:
+questions across domains that we will explore in detail in the upcoming posts:
 
 - **Soft servos used as torque commands.** At the walking gain register of 200
   (0.589 N·m/rad, four times softer than the standing gain of 800), the policy
