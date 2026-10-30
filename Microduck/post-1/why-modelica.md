@@ -25,19 +25,24 @@ and sends 14 joint targets back. MuJoCo is the right tool to train it: on a
 desktop CPU it runs a 6 s walk in 0.55 s, and reinforcement learning needs
 millions of those.
 
-Speed comes from specializing in rigid-body mechanics and contact. MuJoCo has
-no electrical or thermal domain, so in
-[`microduck_rl`](https://github.com/pollen-robotics/microduck_rl) the built-in
-actuator is disabled and a Python callback runs before every `mj_step` to
-compute motor torque from the
+That speed comes from specializing in rigid-body mechanics and contact while
+simplifying the rest of the hardware. MuJoCo has no electrical or thermal
+domain, so in [`microduck_rl`](https://github.com/pollen-robotics/microduck_rl)
+the built-in actuator is disabled and a Python callback runs before every
+`mj_step` to compute motor torque from the
 [BAM XL330 model](https://github.com/Rhoban/bam) at a fixed supply voltage and
-fixed winding resistance. Rebuilding the robot in Modelica puts the 3D multibody
-tree, the 14 servo drivetrains, the shared two-cell battery pack
-(`useBattery = true`, where pack voltage sag is solved together with current
-spikes) and the servo thermal networks (`useThermal = true`, where winding
-copper loss $R i^2$ and gearbox friction $\tau_{\mathrm{f}}\omega$ heat the
-servo and raise its resistance) into one coupled system of equations, and
-exports the whole plant as a standalone FMU (`DuckPlant.fmu`) for Python.
+fixed winding resistance. That is fast enough for policy rollouts, but it
+leaves out how the real robot's power bus, actuators and heat interact under
+load.
+
+Modelica is built for plant fidelity across physical domains. Rebuilding the
+robot in Modelica puts the 3D multibody tree, the 14 servo drivetrains, the
+shared two-cell battery pack (`useBattery = true`, where pack voltage sag is
+solved together with current spikes) and the servo thermal networks
+(`useThermal = true`, where winding copper loss $R i^2$ and gearbox friction
+$\tau_{\mathrm{f}}\omega$ heat the servo and raise its resistance) into one
+coupled system of equations, and exports the whole plant as a standalone FMU
+(`DuckPlant.fmu`) for Python.
 
 ![Diagram view of the WalkingTest model in OpenModelica](images/WalkingTest.svg)
 
