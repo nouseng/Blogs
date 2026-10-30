@@ -21,33 +21,23 @@ command, rendered in MuJoCo.*
 
 The MicroDuck is a 25 cm biped with 14 Dynamixel XL330 servos and a modelled
 mass of 0.737 kg. Its policy reads the IMU and joint states 50 times a second
-and sends 14 joint targets back. MuJoCo is the right tool to train it. On a
+and sends 14 joint targets back. MuJoCo is the right tool to train it: on a
 desktop CPU it runs a 6 s walk in 0.55 s, and reinforcement learning needs
 millions of those.
 
-Speed comes at a price. MuJoCo has no electrical, thermal or 1D drivetrain
-domain. In [`microduck_rl`](https://github.com/pollen-robotics/microduck_rl),
-the built-in actuator is disabled and a Python callback runs before every
-`mj_step` to compute motor torque from the
-[BAM XL330 model](https://github.com/Rhoban/bam) at a fixed episode voltage.
-Ground contact is C code inside the solver.
-
-Rebuilding the robot as an equation-based plant in Modelica opens what a
-rigid-body callback setup cannot reach:
-
-- **Mechanics, electronics and heat in one solver.** Connect all 14 servos to
-  one two-cell battery pack (`useBattery = true`) and enable the servo thermal
-  network (`useThermal = true`): pack voltage sag, winding copper loss ($R i^2$)
-  and gearbox friction ($\tau_{\mathrm{f}}\omega$) are solved together with the
-  3D motion at every step, without callback lag.
-- **Gear play and drivetrains on a 1D shaft.** Instead of inserting 14 extra 3D
-  hinge joints into the robot's body tree to mimic 2° of gear play, Modelica
-  keeps the 14 physical 3D joints and puts the motor, backlash and encoder on
-  each joint's 1D drive shaft.
-- **Open equations and FMU export.** Ground contact is a 60-line equation block
-  (`PointContact`) you can swap without editing a C solver, and the compiler can
-  invert joints from motion to voltage or export the whole robot as a standalone
-  FMU (`DuckPlant.fmu`) for Python and hardware-in-the-loop tests.
+Speed comes from specializing in rigid-body mechanics and contact. MuJoCo has
+no electrical or thermal domain, so in
+[`microduck_rl`](https://github.com/pollen-robotics/microduck_rl) the built-in
+actuator is disabled and a Python callback runs before every `mj_step` to
+compute motor torque from the
+[BAM XL330 model](https://github.com/Rhoban/bam) at a fixed supply voltage and
+fixed winding resistance. Rebuilding the robot in Modelica puts the 3D multibody
+tree, the 14 servo drivetrains, the shared two-cell battery pack
+(`useBattery = true`, where pack voltage sag is solved together with current
+spikes) and the servo thermal networks (`useThermal = true`, where winding
+copper loss $R i^2$ and gearbox friction $\tau_{\mathrm{f}}\omega$ heat the
+servo and raise its resistance) into one coupled system of equations, and
+exports the whole plant as a standalone FMU (`DuckPlant.fmu`) for Python.
 
 ![Diagram view of the WalkingTest model in OpenModelica](images/WalkingTest.svg)
 
