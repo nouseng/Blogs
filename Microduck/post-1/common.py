@@ -50,6 +50,7 @@ def speed(df):
 ROOT = Path(__file__).resolve().parent
 MUJOCO = ROOT / "mujoco"
 FMU_PLANT = ROOT / "fmu" / "DuckPlant.fmu"
+FMU_STAND = ROOT / "fmu" / "DuckStand.fmu"
 POLICY = MUJOCO / "velstand.onnx"
 # Home pose of the joints, MicroDuck.Components.Robot.q0, in the order of JOINTS
 HOME = np.array([0, -0.0873, -0.4579, -0.0049, 0.453, 0.3491, 0.3491, 0, 0, 0, 0.0873, 0.4579, 0.0049, -0.453])
@@ -200,6 +201,47 @@ def walk_fmu(speed_command=0.3, duration=6.0, max_step=0.001, command_delay=COMM
     record = [r for r in record if abs(r[2]) < 0.5]
     df = pd.DataFrame(record, columns=["time"] + PLANT_OUTPUTS + [f"qRef[{i}]" for i in range(1, 15)])
     return df.rename(columns={"x": "distance", "z": "trunkHeight", "pitch": "trunkPitch"})
+
+
+def stand_fmu(gain=800, stop_time=1.0):
+    """Hold the home pose at a servo gain register value with DuckStand.fmu (CVODE)."""
+    from fmpy import simulate_fmu
+
+    outputs = ["z", "pitch", "leftLoad", "rightLoad"]
+    result = simulate_fmu(str(FMU_STAND), fmi_type="ModelExchange", solver="CVode", relative_tolerance=1e-6,
+                          stop_time=stop_time, output_interval=0.002, start_values={"gain": gain}, output=outputs)
+    df = pd.DataFrame({name: result[name] for name in result.dtype.names})
+    return df.rename(columns={"z": "trunkHeight", "pitch": "trunkPitch"})
+
+
+def stand_mujoco(gain=800, duration=1.0):
+    """Drop the MuJoCo robot from the STAND keyframe (2.8 mm) with the servos holding the home pose."""
+    import mujoco
+
+    ns = mujoco_walk()
+    model, data, qadr, dadr = ns["load"](ns["SCENE"])
+    model.opt.disableflags |= mujoco.mjtDisableBit.mjDSBL_ACTUATION
+    model.dof_armature[dadr] = ns["ARMATURE"]
+    model.dof_damping[dadr] = FRICTION_VISCOUS
+    model.dof_frictionloss[dadr] = FRICTION_BASE
+    mujoco.mj_setConst(model, data)
+    mujoco.mj_resetDataKeyframe(model, data, model.key("STAND").id)
+    target = data.qpos[qadr].copy()
+    floor = model.geom("floor").id
+    rows, force = [(0.0, float(data.qpos[2]), 0.0, 0.0)], np.zeros(6)
+    for step in range(int(duration / model.opt.timestep)):
+        ns["servo_force"](model, data, qadr, dadr, target, gain)
+        mujoco.mj_step(model, data)
+        if step % 10 == 0 or data.time < 0.2:
+            normal = np.zeros(2)
+            for i in range(data.ncon):
+                con = data.contact[i]
+                if floor in (con.geom1, con.geom2):
+                    mujoco.mj_contactForce(model, data, i, force)
+                    other = con.geom1 if con.geom2 == floor else con.geom2
+                    normal[0 if "left" in model.geom(other).name else 1] += force[0]
+            rows.append((data.time, data.qpos[2], normal[0], normal[1]))
+    return pd.DataFrame(rows, columns=["time", "trunkHeight", "leftLoad", "rightLoad"])
 
 
 def mujoco_walk():

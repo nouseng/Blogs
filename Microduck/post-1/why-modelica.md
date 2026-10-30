@@ -68,30 +68,41 @@ $4 \times 10^{-13}\ \mathrm{m}$. Each joint drives a 3D revolute joint through a
 `PositionServo` with the identified XL330 parameters (torque constant
 0.346 N·m/A, winding resistance 2.50 Ω, rotor inertia 0.00157 kg·m², Coulomb
 and viscous friction) and 2° of gear play. Under each sole sit eight
-`PointContact` elements implementing MuJoCo's soft pyramidal contact law. The
-50 Hz `WalkingPolicy` block applies the mean training command delay of 22.5 ms.
+`PointContact` elements implementing MuJoCo's soft pyramidal contact law.
 
-Same policy, same 0.3 m/s command, two simulators. After 6 s the Modelica robot
-has covered 0.797 m against 0.799 m in MuJoCo. Its 22 stance touchdowns land
-25 ms from MuJoCo's on average, at a mean trunk height of 118 mm, and over the
-last 4 s it walks at 0.137 m/s against 0.132 m/s.
+First, drop the robot from 2.8 mm onto its soles with the servos holding the
+home pose at `positionGain = 800`. Both simulators peak near 0.05 s (8.4 N
+against 10.5 N per sole, trunk dipping to 115.3 mm against 114.9 mm) and settle
+at half of the 7.2 N robot weight per sole, with trunk height within 0.1 mm
+after 0.2 s.
+
+![Sole normal forces and trunk height of the standing robot, Modelica against MuJoCo](images/standing.png)
+
+*Figure 3: Sole normal forces (top) and trunk height (bottom) when dropped from
+2.8 mm at `positionGain = 800`, compared with MuJoCo.*
+
+Next, close the loop with the 50 Hz `WalkingPolicy` block and its 22.5 ms
+training command delay. Same policy, same 0.3 m/s command, two simulators.
+After 6 s the Modelica robot has covered 0.797 m against 0.799 m in MuJoCo. Its
+22 stance touchdowns land 25 ms from MuJoCo's on average, at a mean trunk height
+of 118 mm, and over the last 4 s it walks at 0.137 m/s against 0.132 m/s.
 
 ![The MicroDuck walking forward under its neural network policy in OpenModelica](images/walk_modelica.gif)
 
-*Figure 3: The Modelica MicroDuck walking under the same trained policy at a
+*Figure 4: The Modelica MicroDuck walking under the same trained policy at a
 0.3 m/s forward command, rendered in OpenModelica.*
 
 ![Forward position and trunk height over a 6 s walk, Modelica against MuJoCo](images/walking.png)
 
-*Figure 4: Forward position (top) and trunk height (bottom) over a 6 s walk.
+*Figure 5: Forward position (top) and trunk height (bottom) over a 6 s walk.
 Solid: the Modelica MicroDuck library. Dashed: MuJoCo, same policy and command.*
 
 ## What the Plant Answers Next
 
 In Modelica a 6 s walk takes about 6 s on a desktop CPU against 0.55 s in
 MuJoCo. Nobody should train a policy this way. Once the policy is trained and
-the plant is verified, `DuckPlant.fmu` answers actuator and power questions
-directly from Python:
+the plant is verified, the equation-based model answers actuator and power
+questions across domains:
 
 - **Soft servos used as torque commands.** At the walking gain register of 200
   (0.589 N·m/rad, four times softer than the standing gain of 800), the policy
@@ -105,17 +116,6 @@ directly from Python:
   servos dissipate 2.17 W (1.79 W in copper, 0.37 W in friction), and an
   unpowered left knee (`kneeGain = 0`) shifts 83% more copper heating (0.41 to
   0.75 W) onto the opposite right knee.
-
-![Left knee target angle, measured angle and servo torque over a 2 s stride window](images/knee_tracking.png)
-
-*Figure 5: Left knee target $q_{\mathrm{ref}}$ against measured angle $q$ (top)
-and resulting servo torque (bottom) at gain 200, stepped from `DuckPlant.fmu`.*
-
-![Mean copper loss across the 10 leg servos, nominal 7.4 V against an unpowered left knee](images/copper_shift.png)
-
-*Figure 6: Mean winding copper loss $Ri^2$ across the 10 leg servos (`t >= 2 s`).
-An unpowered left knee (`kneeGain = 0`) shifts 83% more heating onto the right
-knee.*
 
 MuJoCo and Modelica solve different halves of the problem. Train the policy in
 the fast contact engine, then bring the weights into an equation-based plant

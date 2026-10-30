@@ -21,22 +21,26 @@ installation is required to run the notebook.
 
 ## Files
 
-- `why-modelica.ipynb` — notebook: runs this post's scenarios live through
-  `fmu/DuckPlant.fmu` and `mujoco/`, with the policy in Python.
+- `why-modelica.ipynb` — notebook: runs this post's standing and walking
+  scenarios live through `fmu/` and `mujoco/`, with the policy in Python.
 - `why-modelica.md` — the post.
 - `figures.py` — renders `images/walk.gif` and `images/walk-frame.png` from the
-  MuJoCo walk at a 0.3 m/s command, draws `images/walking.png`,
-  `images/knee_tracking.png` and `images/copper_shift.png`, and prints the
-  numbers quoted in the post.
-- `common.py` — shared FMU (`walk_fmu`) and MuJoCo (`walk_mujoco`) runners and
-  plot style.
+  MuJoCo walk at a 0.3 m/s command, draws `images/standing.png` and
+  `images/walking.png`, and prints the numbers quoted in the post.
+- `common.py` — shared FMU (`stand_fmu`, `walk_fmu`) and MuJoCo
+  (`stand_mujoco`, `walk_mujoco`) runners and plot style.
 - `requirements.txt` — Python dependencies.
-- `fmu/DuckPlant.fmu` — Model Exchange 2.0 FMU (Win64 + Linux64).
+- `fmu/` — `DuckPlant.fmu` and `DuckStand.fmu` (Model Exchange 2.0, Win64 +
+  Linux64).
 - `mujoco/` — `velstand.onnx` (trained 50 Hz policy), `walk.ipynb`,
   `build_duck.ipynb`, and `model/` (`scene_backlash.xml`,
   `robot_groundcontact_backlash.xml`, and `assets/*.stl`).
 - `images/WalkingTest.svg` — diagram view of `MicroDuck.Examples.WalkingTest`.
+- `images/standing.png` — sole normal forces and trunk height during the 2.8 mm
+  standing drop test (`positionGain = 800`), compared with MuJoCo.
 - `images/walk_modelica.gif` — animation of the OpenModelica walk.
+- `images/walking.png` — forward position and trunk height over a 6 s walk,
+  compared with MuJoCo.
 - `data/walk_duck.csv` — the OpenModelica walk (`0.797 m` after `6 s`; running
   `DuckPlant.fmu` in Python with 1 ms Runge-Kutta gives `0.798 m`).
 - `data/walk_mujoco.csv` — the MuJoCo walk, written by `figures.py`.
