@@ -78,7 +78,7 @@ after 0.2 s.
 
 Next, close the loop with the 50 Hz `WalkingPolicy` block and its 22.5 ms
 training command delay. Same policy, same 0.3 m/s command, two simulators.
-After 6 s the Modelica robot has covered 0.797 m against 0.799 m in MuJoCo. Its
+After 6 s the Modelica robot has covered 0.798 m against 0.799 m in MuJoCo. Its
 22 stance touchdowns land 25 ms from MuJoCo's on average, at a mean trunk height
 of 118 mm, and over the last 4 s it walks at 0.137 m/s against 0.132 m/s. We
 will unpack the remaining differences between the two curves in detail in the
@@ -106,7 +106,7 @@ questions across domains that we will explore in detail in the upcoming posts:
   swings its angle targets 24° RMS ahead of the knees, using position error as a
   torque command while staying below 30% of the 1.01 N·m stall torque.
 - **Supply voltage and coupled battery sag.** Dropping the pack from 7.4 V to
-  6.5 V cuts mean servo power from 2.26 W to 1.85 W, and on the coupled 2S pack
+  6.5 V cuts mean servo power from 2.24 W to 2.02 W, and on the coupled 2S pack
   (`useBattery = true`) the 0.92 A touchdown spike pulls terminal voltage down
   by 64.5 mV across all 14 servos simultaneously.
 - **Servo heating and fault load shift.** With `useThermal = true`, the 14
