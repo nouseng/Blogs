@@ -109,8 +109,8 @@ questions across domains that we will explore in detail in the upcoming posts:
   6.5 V cuts mean servo power from 2.24 W to 2.02 W, and on the coupled 2S pack
   (`useBattery = true`) the 0.92 A touchdown spike pulls terminal voltage down
   by 64.5 mV across all 14 servos simultaneously.
-- **Servo heating.** With `useThermal = true`, the 14 servos dissipate 2.17 W
-  (1.79 W in copper, 0.37 W in friction), tracked per winding and housing
+- **Servo heating.** With `useThermal = true`, the 14 servos dissipate 2.11 W
+  (1.74 W in copper, 0.37 W in friction), tracked per winding and housing
   alongside the mechanics.
 
 MuJoCo and Modelica solve different halves of the problem. Train the policy in
