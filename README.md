@@ -61,3 +61,8 @@ Code, data, and figures for the posts on [nouseng.co](https://nouseng.co).
   Modelica?* The Pollen Robotics MicroDuck biped rebuilt as a Modelica plant
   model, exported as an FMI 2.0 Model Exchange FMU and verified against MuJoCo.
   [Read the post](https://nouseng.co/libraries/atelier/microduck/why-modelica/)
+- [`Microduck/post-2`](Microduck/post-2) — *Can a Lame Duck Still Walk?* A
+  worn gear, a weak motor and an unpowered motor injected into one knee of the
+  MicroDuck plant, then a sweep of that knee's supply voltage to find where the
+  trained walking policy stops walking.
+  [Read the post](https://nouseng.co/libraries/atelier/microduck/servo-faults/)
