@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" font-family="Segoe UI, DejaVu Sans, sans-serif" font-size="14">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#404040"/>
+    </marker>
+    <marker id="arr-b" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#0080b4"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="898" height="318" fill="#ffffff" stroke="#c8c8c8"/>
+  <text x="24" y="30" font-weight="bold" fill="#404040" font-size="16">How the Two Models Come from the ETABS Matrix Exports</text>
+
+  <!-- Step 1: ETABS Exports -->
+  <rect x="24" y="54" width="230" height="240" rx="6" fill="#ebf0f4" stroke="#404040" stroke-width="1.5"/>
+  <text x="139" y="80" font-weight="bold" fill="#404040" text-anchor="middle" font-size="15">1. ETABS Stiffness &amp; Mass</text>
+
+  <rect x="40" y="96" width="198" height="78" rx="4" fill="#ffffff" stroke="#404040" stroke-width="1.2"/>
+  <text x="139" y="118" font-weight="bold" fill="#404040" text-anchor="middle">Superstructure (345,348 DOF)</text>
+  <text x="139" y="138" fill="#404040" text-anchor="middle" font-size="13">Meshed slabs, FPS links</text>
+  <text x="139" y="158" fill="#0080b4" text-anchor="middle" font-size="13">Clean K rows, FPS base</text>
+
+  <rect x="40" y="190" width="198" height="88" rx="4" fill="#d5dfe7" stroke="#404040" stroke-width="1.2"/>
+  <text x="139" y="210" font-weight="bold" fill="#404040" text-anchor="middle">Foundation (92,556 DOF)</text>
+  <text x="139" y="229" fill="#404040" text-anchor="middle" font-size="13">Unmeshed flexible slabs</text>
+  <text x="139" y="247" fill="#404040" text-anchor="middle" font-size="13">184 bearings + 64 dampers</text>
+  <text x="139" y="266" fill="#0080b4" text-anchor="middle" font-size="13" font-weight="bold">LRB base</text>
+
+  <!-- Step 2: Recover Coordinates -->
+  <rect x="296" y="54" width="230" height="240" rx="6" fill="#ebf0f4" stroke="#0080b4" stroke-width="1.6"/>
+  <text x="411" y="80" font-weight="bold" fill="#0080b4" text-anchor="middle" font-size="15">2. Recover Joint Positions</text>
+  <text x="411" y="106" fill="#404040" text-anchor="middle" font-size="13">Matrix files omit (x, y, z),</text>
+  <text x="411" y="124" fill="#404040" text-anchor="middle" font-size="13">but rigid rotation gives zero force:</text>
+  <rect x="336" y="138" width="150" height="34" rx="4" fill="#ffffff" stroke="#0080b4" stroke-width="1.2"/>
+  <text x="411" y="160" font-weight="bold" fill="#0080b4" text-anchor="middle" font-size="15">K · r(x, y, z) = 0</text>
+  <text x="411" y="196" fill="#404040" text-anchor="middle" font-size="13">• Solve Superstructure first (0.1 mm)</text>
+  <text x="411" y="218" fill="#404040" text-anchor="middle" font-size="13">• Copy 9,108 shared joints</text>
+  <text x="411" y="240" fill="#404040" text-anchor="middle" font-size="13">• Solve remaining 6,786 joints</text>
+  <text x="411" y="272" fill="#404040" text-anchor="middle" font-weight="bold" font-size="13">All 9 floors placed in 3D</text>
+
+  <!-- Arrows Step 1 -> Step 2 -->
+  <line x1="254" y1="135" x2="296" y2="135" stroke="#0080b4" stroke-width="2" marker-end="url(#arr-b)"/>
+  <line x1="254" y1="234" x2="296" y2="234" stroke="#404040" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Step 3A: Reduced 24-DOF Model -->
+  <rect x="572" y="54" width="304" height="110" rx="6" fill="#ebf0f4" stroke="#0080b4" stroke-width="1.8"/>
+  <text x="724" y="78" font-weight="bold" fill="#0080b4" text-anchor="middle" font-size="15">3A. Reduced 27-DOF Model (FMU)</text>
+  <text x="724" y="100" fill="#404040" text-anchor="middle" font-size="13">Tie each floor rigidly to (x, y, yaw)</text>
+  <text x="724" y="120" fill="#404040" text-anchor="middle" font-size="13">Condense 71,766 DOF → 24×24 K &amp; 3×3 M</text>
+  <text x="724" y="144" fill="#0080b4" text-anchor="middle" font-weight="bold" font-size="13">→ Floor drift, accel, base shear, travel</text>
+
+  <!-- Step 3B: Full-DOF Model -->
+  <rect x="572" y="184" width="304" height="110" rx="6" fill="#ebf0f4" stroke="#404040" stroke-width="1.8"/>
+  <text x="724" y="208" font-weight="bold" fill="#404040" text-anchor="middle" font-size="15">3B. Full-DOF Model (Python FNA)</text>
+  <text x="724" y="230" fill="#404040" text-anchor="middle" font-size="13">Keep flexible slabs (1,500 Ritz modes)</text>
+  <text x="724" y="250" fill="#404040" text-anchor="middle" font-size="13">184 bearings + 64 dampers as nonlinear links</text>
+  <text x="724" y="274" fill="#404040" text-anchor="middle" font-weight="bold" font-size="13">→ Peak joint drift &amp; accel per floor</text>
+
+  <!-- Arrows Step 2 -> Step 3A / 3B -->
+  <line x1="526" y1="135" x2="572" y2="112" stroke="#0080b4" stroke-width="2" marker-end="url(#arr-b)"/>
+  <line x1="526" y1="215" x2="572" y2="238" stroke="#404040" stroke-width="2" marker-end="url(#arr)"/>
+</svg>

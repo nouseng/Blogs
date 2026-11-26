@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" font-family="Segoe UI, DejaVu Sans, sans-serif" font-size="15">
+  <defs>
+    <marker id="a" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#0080b4"/>
+    </marker>
+    <marker id="g" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#404040"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="898" height="458" fill="#ffffff" stroke="#c8c8c8"/>
+  <text x="28" y="32" font-weight="bold" fill="#404040" font-size="17">27-DOF Modelica Model: 8 Rigid Floors on the Isolation Base and Damper Group</text>
+
+  <!-- 8 Rigid Floors (24 DOF): 2 setback + 6 podium represented cleanly -->
+  <g fill="#b0bec9" stroke="#404040" stroke-width="1.5">
+    <rect x="140" y="56" width="120" height="20"/>
+    <rect x="140" y="92" width="120" height="20"/>
+    <rect x="90" y="128" width="220" height="20"/>
+    <rect x="90" y="164" width="220" height="20"/>
+    <rect x="90" y="200" width="220" height="20"/>
+    <rect x="90" y="236" width="220" height="20"/>
+  </g>
+  <g stroke="#404040" stroke-width="2">
+    <line x1="160" y1="76" x2="160" y2="92"/>
+    <line x1="240" y1="76" x2="240" y2="92"/>
+    <line x1="160" y1="112" x2="160" y2="128"/>
+    <line x1="240" y1="112" x2="240" y2="128"/>
+    <line x1="120" y1="148" x2="120" y2="164"/>
+    <line x1="280" y1="148" x2="280" y2="164"/>
+    <line x1="120" y1="184" x2="120" y2="200"/>
+    <line x1="280" y1="184" x2="280" y2="200"/>
+    <line x1="120" y1="220" x2="120" y2="236"/>
+    <line x1="280" y1="220" x2="280" y2="236"/>
+    <line x1="120" y1="256" x2="120" y2="280"/>
+    <line x1="280" y1="256" x2="280" y2="280"/>
+  </g>
+  <text x="272" y="71" fill="#404040" font-size="14" font-weight="bold">Floor 7 .. Floor 6 (setback)</text>
+  <text x="320" y="143" fill="#404040" font-size="14" font-weight="bold">Floor 5 .. Ground (podium)</text>
+  <text x="320" y="163" fill="#404040" font-size="13">24 DOF: x, y, yaw per floor</text>
+  <text x="320" y="182" fill="#404040" font-size="13">24×24 condensed K, 2 % modal damping</text>
+
+  <!-- Isolation slab at z = 0.00 m (Basement, 3 DOF) -->
+  <rect x="64" y="280" width="268" height="24" fill="#d5dfe7" stroke="#404040" stroke-width="1.8"/>
+  <text x="198" y="297" fill="#404040" font-size="13" font-weight="bold" text-anchor="middle">Basement isolation slab (0.00 m, 3 DOF)</text>
+
+  <!-- 16 Bearing Groups under slab (z = -0.40 m to 0.00 m) -->
+  <g fill="#ebf0f4" stroke="#0080b4" stroke-width="1.8">
+    <ellipse cx="110" cy="332" rx="18" ry="12"/>
+    <ellipse cx="185" cy="332" rx="18" ry="12"/>
+    <ellipse cx="260" cy="332" rx="18" ry="12"/>
+  </g>
+  <g stroke="#404040" stroke-width="1.8">
+    <line x1="110" y1="304" x2="110" y2="320"/>
+    <line x1="185" y1="304" x2="185" y2="320"/>
+    <line x1="260" y1="304" x2="260" y2="320"/>
+    <line x1="110" y1="344" x2="110" y2="360"/>
+    <line x1="185" y1="344" x2="185" y2="360"/>
+    <line x1="260" y1="344" x2="260" y2="360"/>
+  </g>
+  <text x="185" y="398" fill="#0080b4" font-size="14" font-weight="bold" text-anchor="middle">184 bearings (16 groups) + 0.5 % dashpot</text>
+
+  <!-- Horizontal Viscous Damper across the same isolation interface (-0.40 m to 0.00 m) -->
+  <!-- Foundation abutment step on the right rising from ground -->
+  <polygon points="440,360 440,280 456,280 456,376 50,376 50,360" fill="#ebf0f4" stroke="#404040" stroke-width="1.6"/>
+  <!-- Horizontal dashpot between slab right edge (332,292) and foundation abutment (440,292) -->
+  <g stroke="#0080b4" stroke-width="2.2" fill="none">
+    <line x1="332" y1="292" x2="362" y2="292"/>
+    <rect x="362" y="280" width="44" height="24" fill="#ebf0f4" stroke="#0080b4" stroke-width="1.8"/>
+    <line x1="376" y1="284" x2="376" y2="300"/>
+    <line x1="376" y1="292" x2="440" y2="292"/>
+  </g>
+  <text x="384" y="271" fill="#0080b4" font-size="13.5" font-weight="bold" text-anchor="middle">64 dampers</text>
+  <text x="384" y="324" fill="#0080b4" font-size="13" text-anchor="middle">C·sgn(v)|v|^0.5</text>
+
+  <text x="250" y="422" fill="#404040" font-size="14" text-anchor="middle">Foundation / ground (−0.40 m)</text>
+
+  <!-- Right side: Simple 3-component earthquake input flow -->
+  <rect x="520" y="64" width="356" height="330" rx="6" fill="#f8fafc" stroke="#c8c8c8" stroke-width="1.2"/>
+  <text x="698" y="92" font-weight="bold" fill="#404040" font-size="15" text-anchor="middle">3-Component Earthquake Input</text>
+
+  <g fill="#ebf0f4" stroke="#404040" stroke-width="1.5">
+    <rect x="536" y="112" width="324" height="46" rx="4"/>
+    <rect x="536" y="186" width="204" height="46" rx="4"/>
+    <rect x="536" y="260" width="204" height="46" rx="4"/>
+    <rect x="536" y="332" width="324" height="46" rx="4"/>
+    <rect x="758" y="186" width="102" height="120" rx="4" stroke="#0080b4"/>
+  </g>
+  <g fill="#404040" font-size="12.5" text-anchor="middle">
+    <text x="698" y="132" font-weight="bold" font-size="13">ETABS Record Pair (pairIndex 1..22)</text>
+    <text x="698" y="150">fault-parallel a_x, fault-normal a_y, vertical a_z</text>
+
+    <text x="638" y="206" font-weight="bold" font-size="13">Scale &amp; Orientation</text>
+    <text x="638" y="224">_X (0°) or _Y (90°)</text>
+
+    <text x="638" y="280" font-weight="bold" font-size="13">Double Integrator</text>
+    <text x="638" y="298">a_x, a_y → u_x(t), u_y(t)</text>
+
+    <text x="698" y="352" font-weight="bold" font-size="13">Prescribed Ground Motion</text>
+    <text x="698" y="370">drives foundation (−0.40 m) &amp; bearing normal loads</text>
+  </g>
+  <g fill="#0080b4" font-size="13" text-anchor="middle">
+    <text x="809" y="232" font-weight="bold">Vertical</text>
+    <text x="809" y="252">a_z(t)</text>
+    <text x="809" y="272">↓</text>
+    <text x="809" y="292">N(t)</text>
+  </g>
+
+  <g stroke="#404040" stroke-width="1.6" marker-end="url(#g)">
+    <line x1="638" y1="158" x2="638" y2="186"/>
+    <line x1="638" y1="232" x2="638" y2="260"/>
+    <line x1="638" y1="306" x2="638" y2="332"/>
+  </g>
+  <g stroke="#0080b4" stroke-width="1.6" marker-end="url(#a)">
+    <line x1="809" y1="158" x2="809" y2="186"/>
+    <line x1="809" y1="306" x2="809" y2="332"/>
+  </g>
+</svg>

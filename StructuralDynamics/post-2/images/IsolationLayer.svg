@@ -1,0 +1,296 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" font-family="Segoe UI, DejaVu Sans, sans-serif" font-size="14">
+  <rect x="1" y="1" width="898" height="358" fill="#ffffff" stroke="#c8c8c8"/>
+  <text x="24" y="30" font-weight="bold" fill="#404040" font-size="16">Isolation Interface (z = −0.40 m to 0.00 m): 16 Bearing Groups and 32 Damper V-Pairs</text>
+
+  <!-- Left Panel: L-Plan 16 Bearing Groups, to scale from data/isolators.csv -->
+  <rect x="24" y="48" width="400" height="292" rx="6" fill="#ebf0f4" stroke="#404040" stroke-width="1.5"/>
+  <text x="224" y="72" font-weight="bold" fill="#404040" text-anchor="middle" font-size="15">Plan View: 184 Bearings → 16 Groups</text>
+  <polygon points="116.5,103.5 207.3,103.5 207.3,119.4 331.5,119.4 331.5,179.0 207.3,179.0 207.3,194.3 192.0,194.3 192.0,334.0 132.4,334.0 132.4,194.3 116.5,194.3" fill="#ffffff" stroke="#404040" stroke-width="2"/>
+  <g fill="#9fb3c2">
+    <circle cx="168.7" cy="318.7" r="1.6"/>
+    <circle cx="177.9" cy="318.7" r="1.6"/>
+    <circle cx="192.0" cy="318.7" r="1.6"/>
+    <circle cx="132.4" cy="334.0" r="1.6"/>
+    <circle cx="146.5" cy="334.0" r="1.6"/>
+    <circle cx="155.7" cy="334.0" r="1.6"/>
+    <circle cx="168.7" cy="334.0" r="1.6"/>
+    <circle cx="177.9" cy="334.0" r="1.6"/>
+    <circle cx="192.0" cy="334.0" r="1.6"/>
+    <circle cx="222.7" cy="155.7" r="1.6"/>
+    <circle cx="222.7" cy="142.7" r="1.6"/>
+    <circle cx="222.7" cy="133.5" r="1.6"/>
+    <circle cx="222.7" cy="119.4" r="1.6"/>
+    <circle cx="222.7" cy="164.9" r="1.6"/>
+    <circle cx="222.7" cy="179.0" r="1.6"/>
+    <circle cx="238.6" cy="155.7" r="1.6"/>
+    <circle cx="238.6" cy="142.7" r="1.6"/>
+    <circle cx="238.6" cy="133.5" r="1.6"/>
+    <circle cx="238.6" cy="119.4" r="1.6"/>
+    <circle cx="238.6" cy="164.9" r="1.6"/>
+    <circle cx="238.6" cy="179.0" r="1.6"/>
+    <circle cx="254.0" cy="155.7" r="1.6"/>
+    <circle cx="254.0" cy="142.7" r="1.6"/>
+    <circle cx="254.0" cy="133.5" r="1.6"/>
+    <circle cx="254.0" cy="119.4" r="1.6"/>
+    <circle cx="254.0" cy="164.9" r="1.6"/>
+    <circle cx="254.0" cy="179.0" r="1.6"/>
+    <circle cx="269.5" cy="155.7" r="1.6"/>
+    <circle cx="269.5" cy="142.7" r="1.6"/>
+    <circle cx="269.5" cy="133.5" r="1.6"/>
+    <circle cx="269.5" cy="119.4" r="1.6"/>
+    <circle cx="269.5" cy="164.9" r="1.6"/>
+    <circle cx="269.5" cy="179.0" r="1.6"/>
+    <circle cx="285.1" cy="155.7" r="1.6"/>
+    <circle cx="285.1" cy="142.7" r="1.6"/>
+    <circle cx="285.1" cy="133.5" r="1.6"/>
+    <circle cx="285.1" cy="119.4" r="1.6"/>
+    <circle cx="285.1" cy="164.9" r="1.6"/>
+    <circle cx="285.1" cy="179.0" r="1.6"/>
+    <circle cx="300.6" cy="155.7" r="1.6"/>
+    <circle cx="300.6" cy="142.7" r="1.6"/>
+    <circle cx="300.6" cy="133.5" r="1.6"/>
+    <circle cx="300.6" cy="119.4" r="1.6"/>
+    <circle cx="300.6" cy="164.9" r="1.6"/>
+    <circle cx="300.6" cy="179.0" r="1.6"/>
+    <circle cx="316.1" cy="155.7" r="1.6"/>
+    <circle cx="316.1" cy="142.7" r="1.6"/>
+    <circle cx="316.1" cy="133.5" r="1.6"/>
+    <circle cx="316.1" cy="119.4" r="1.6"/>
+    <circle cx="316.1" cy="164.9" r="1.6"/>
+    <circle cx="316.1" cy="179.0" r="1.6"/>
+    <circle cx="331.5" cy="155.7" r="1.6"/>
+    <circle cx="331.5" cy="142.7" r="1.6"/>
+    <circle cx="331.5" cy="133.5" r="1.6"/>
+    <circle cx="331.5" cy="119.4" r="1.6"/>
+    <circle cx="331.5" cy="164.9" r="1.6"/>
+    <circle cx="331.5" cy="179.0" r="1.6"/>
+    <circle cx="116.5" cy="125.0" r="1.6"/>
+    <circle cx="124.8" cy="125.0" r="1.6"/>
+    <circle cx="138.1" cy="103.5" r="1.6"/>
+    <circle cx="138.1" cy="111.8" r="1.6"/>
+    <circle cx="146.5" cy="125.0" r="1.6"/>
+    <circle cx="155.7" cy="119.4" r="1.6"/>
+    <circle cx="155.7" cy="217.5" r="1.6"/>
+    <circle cx="168.7" cy="217.5" r="1.6"/>
+    <circle cx="132.4" cy="201.2" r="1.6"/>
+    <circle cx="146.5" cy="201.2" r="1.6"/>
+    <circle cx="177.9" cy="149.7" r="1.6"/>
+    <circle cx="192.0" cy="149.7" r="1.6"/>
+    <circle cx="162.8" cy="164.9" r="1.6"/>
+    <circle cx="162.8" cy="179.0" r="1.6"/>
+    <circle cx="214.2" cy="133.5" r="1.6"/>
+    <circle cx="214.2" cy="119.4" r="1.6"/>
+    <circle cx="230.6" cy="155.7" r="1.6"/>
+    <circle cx="230.6" cy="142.7" r="1.6"/>
+    <circle cx="116.5" cy="142.7" r="1.6"/>
+    <circle cx="116.5" cy="133.5" r="1.6"/>
+    <circle cx="116.5" cy="111.8" r="1.6"/>
+    <circle cx="116.5" cy="103.5" r="1.6"/>
+    <circle cx="124.8" cy="133.5" r="1.6"/>
+    <circle cx="124.8" cy="111.8" r="1.6"/>
+    <circle cx="124.8" cy="103.5" r="1.6"/>
+    <circle cx="132.4" cy="142.7" r="1.6"/>
+    <circle cx="138.1" cy="133.5" r="1.6"/>
+    <circle cx="146.5" cy="103.5" r="1.6"/>
+    <circle cx="146.5" cy="111.8" r="1.6"/>
+    <circle cx="146.5" cy="133.5" r="1.6"/>
+    <circle cx="146.5" cy="142.7" r="1.6"/>
+    <circle cx="155.7" cy="103.5" r="1.6"/>
+    <circle cx="155.7" cy="133.5" r="1.6"/>
+    <circle cx="155.7" cy="142.7" r="1.6"/>
+    <circle cx="116.5" cy="155.7" r="1.6"/>
+    <circle cx="132.4" cy="155.7" r="1.6"/>
+    <circle cx="146.5" cy="155.7" r="1.6"/>
+    <circle cx="155.7" cy="155.7" r="1.6"/>
+    <circle cx="168.7" cy="155.7" r="1.6"/>
+    <circle cx="168.7" cy="142.7" r="1.6"/>
+    <circle cx="168.7" cy="133.5" r="1.6"/>
+    <circle cx="168.7" cy="119.4" r="1.6"/>
+    <circle cx="168.7" cy="103.5" r="1.6"/>
+    <circle cx="116.5" cy="164.9" r="1.6"/>
+    <circle cx="132.4" cy="164.9" r="1.6"/>
+    <circle cx="146.5" cy="164.9" r="1.6"/>
+    <circle cx="155.7" cy="164.9" r="1.6"/>
+    <circle cx="168.7" cy="164.9" r="1.6"/>
+    <circle cx="177.9" cy="155.7" r="1.6"/>
+    <circle cx="177.9" cy="142.7" r="1.6"/>
+    <circle cx="177.9" cy="133.5" r="1.6"/>
+    <circle cx="177.9" cy="119.4" r="1.6"/>
+    <circle cx="177.9" cy="103.5" r="1.6"/>
+    <circle cx="177.9" cy="164.9" r="1.6"/>
+    <circle cx="116.5" cy="179.0" r="1.6"/>
+    <circle cx="132.4" cy="179.0" r="1.6"/>
+    <circle cx="146.5" cy="179.0" r="1.6"/>
+    <circle cx="155.7" cy="179.0" r="1.6"/>
+    <circle cx="168.7" cy="179.0" r="1.6"/>
+    <circle cx="177.9" cy="179.0" r="1.6"/>
+    <circle cx="116.5" cy="194.1" r="1.6"/>
+    <circle cx="132.4" cy="194.1" r="1.6"/>
+    <circle cx="146.5" cy="194.1" r="1.6"/>
+    <circle cx="155.7" cy="194.1" r="1.6"/>
+    <circle cx="168.7" cy="194.1" r="1.6"/>
+    <circle cx="177.9" cy="194.1" r="1.6"/>
+    <circle cx="192.0" cy="155.7" r="1.6"/>
+    <circle cx="192.0" cy="142.7" r="1.6"/>
+    <circle cx="192.0" cy="133.5" r="1.6"/>
+    <circle cx="192.0" cy="119.4" r="1.6"/>
+    <circle cx="192.0" cy="103.5" r="1.6"/>
+    <circle cx="192.0" cy="164.9" r="1.6"/>
+    <circle cx="192.0" cy="179.0" r="1.6"/>
+    <circle cx="192.0" cy="194.1" r="1.6"/>
+    <circle cx="207.2" cy="155.7" r="1.6"/>
+    <circle cx="207.2" cy="142.7" r="1.6"/>
+    <circle cx="207.2" cy="133.5" r="1.6"/>
+    <circle cx="207.2" cy="119.4" r="1.6"/>
+    <circle cx="207.2" cy="103.5" r="1.6"/>
+    <circle cx="207.2" cy="164.9" r="1.6"/>
+    <circle cx="207.2" cy="179.0" r="1.6"/>
+    <circle cx="207.2" cy="194.1" r="1.6"/>
+    <circle cx="132.4" cy="209.7" r="1.6"/>
+    <circle cx="146.5" cy="209.7" r="1.6"/>
+    <circle cx="155.7" cy="209.7" r="1.6"/>
+    <circle cx="168.7" cy="209.7" r="1.6"/>
+    <circle cx="177.9" cy="209.7" r="1.6"/>
+    <circle cx="192.0" cy="209.7" r="1.6"/>
+    <circle cx="132.4" cy="225.6" r="1.6"/>
+    <circle cx="146.5" cy="225.6" r="1.6"/>
+    <circle cx="155.7" cy="225.6" r="1.6"/>
+    <circle cx="168.7" cy="225.6" r="1.6"/>
+    <circle cx="177.9" cy="225.6" r="1.6"/>
+    <circle cx="192.0" cy="225.6" r="1.6"/>
+    <circle cx="132.4" cy="241.0" r="1.6"/>
+    <circle cx="146.5" cy="241.0" r="1.6"/>
+    <circle cx="155.7" cy="241.0" r="1.6"/>
+    <circle cx="168.7" cy="241.0" r="1.6"/>
+    <circle cx="177.9" cy="241.0" r="1.6"/>
+    <circle cx="192.0" cy="241.0" r="1.6"/>
+    <circle cx="132.4" cy="256.5" r="1.6"/>
+    <circle cx="146.5" cy="256.5" r="1.6"/>
+    <circle cx="155.7" cy="256.5" r="1.6"/>
+    <circle cx="168.7" cy="256.5" r="1.6"/>
+    <circle cx="177.9" cy="256.5" r="1.6"/>
+    <circle cx="192.0" cy="256.5" r="1.6"/>
+    <circle cx="132.4" cy="272.0" r="1.6"/>
+    <circle cx="146.5" cy="272.0" r="1.6"/>
+    <circle cx="155.7" cy="272.0" r="1.6"/>
+    <circle cx="168.7" cy="272.0" r="1.6"/>
+    <circle cx="177.9" cy="272.0" r="1.6"/>
+    <circle cx="192.0" cy="272.0" r="1.6"/>
+    <circle cx="132.4" cy="287.6" r="1.6"/>
+    <circle cx="146.5" cy="287.6" r="1.6"/>
+    <circle cx="155.7" cy="287.6" r="1.6"/>
+    <circle cx="168.7" cy="287.6" r="1.6"/>
+    <circle cx="177.9" cy="287.6" r="1.6"/>
+    <circle cx="192.0" cy="287.6" r="1.6"/>
+    <circle cx="132.4" cy="303.1" r="1.6"/>
+    <circle cx="146.5" cy="303.1" r="1.6"/>
+    <circle cx="155.7" cy="303.1" r="1.6"/>
+    <circle cx="168.7" cy="303.1" r="1.6"/>
+    <circle cx="177.9" cy="303.1" r="1.6"/>
+    <circle cx="192.0" cy="303.1" r="1.6"/>
+    <circle cx="132.4" cy="318.7" r="1.6"/>
+    <circle cx="146.5" cy="318.7" r="1.6"/>
+    <circle cx="155.7" cy="318.7" r="1.6"/>
+  </g>
+  <g fill="#d5dfe7" stroke="#0080b4" stroke-width="1.2">
+    <circle cx="145.3" cy="311.5" r="8.2"/>
+    <circle cx="179.5" cy="311.5" r="8.2"/>
+    <circle cx="145.0" cy="257.6" r="7.2"/>
+    <circle cx="179.3" cy="258.1" r="7.2"/>
+    <circle cx="146.4" cy="219.8" r="6.4"/>
+    <circle cx="178.0" cy="220.3" r="6.4"/>
+    <circle cx="134.9" cy="176.0" r="10.3"/>
+    <circle cx="184.8" cy="171.1" r="11.0"/>
+    <circle cx="137.2" cy="124.1" r="11.7"/>
+    <circle cx="186.5" cy="121.9" r="9.6"/>
+    <circle cx="233.2" cy="165.0" r="6.4"/>
+    <circle cx="229.0" cy="131.5" r="7.2"/>
+    <circle cx="270.9" cy="166.1" r="7.2"/>
+    <circle cx="270.4" cy="132.0" r="7.2"/>
+    <circle cx="316.8" cy="166.5" r="7.2"/>
+    <circle cx="316.6" cy="132.3" r="7.2"/>
+  </g>
+  <g fill="#404040" font-size="9" text-anchor="middle">
+    <text x="145.3" y="314.5">G1</text>
+    <text x="179.5" y="314.5">G2</text>
+    <text x="145.0" y="260.6">G3</text>
+    <text x="179.3" y="261.1">G4</text>
+    <text x="146.4" y="222.8">G5</text>
+    <text x="178.0" y="223.3">G6</text>
+    <text x="134.9" y="179.0">G7</text>
+    <text x="184.8" y="174.1">G8</text>
+    <text x="137.2" y="127.1">G9</text>
+    <text x="186.5" y="124.9">G10</text>
+    <text x="233.2" y="168.0">G11</text>
+    <text x="229.0" y="134.5">G12</text>
+    <text x="270.9" y="169.1">G13</text>
+    <text x="270.4" y="135.0">G14</text>
+    <text x="316.8" y="169.5">G15</text>
+    <text x="316.6" y="135.3">G16</text>
+  </g>
+  <!-- Report monitored points Nokta 1..4 (Sekil 17) -->
+  <g fill="#c0392b" stroke="#ffffff" stroke-width="1.2">
+    <circle cx="116.5" cy="103.5" r="5"/>
+    <circle cx="192.0" cy="334.0" r="5"/>
+    <circle cx="331.5" cy="119.4" r="5"/>
+    <circle cx="331.5" cy="179.0" r="5"/>
+  </g>
+  <g fill="#c0392b" font-weight="bold" font-size="12">
+    <text x="92.5" y="99.5">P1</text>
+    <text x="200.0" y="338.0">P2</text>
+    <text x="339.5" y="117.4">P3</text>
+    <text x="339.5" y="191.0">P4</text>
+  </g>
+
+  <!-- Right Panel Top: Elevation View of Bearings & Dampers at Same Level -->
+  <rect x="448" y="48" width="436" height="140" rx="6" fill="#ebf0f4" stroke="#0080b4" stroke-width="1.5"/>
+  <text x="666" y="71" font-weight="bold" fill="#0080b4" text-anchor="middle" font-size="15">Elevation: Both Sit in the −0.40 m to 0.00 m Gap</text>
+
+  <!-- Basement Slab at 0.00 m -->
+  <rect x="476" y="88" width="380" height="20" fill="#b0bec9" stroke="#404040" stroke-width="1.5"/>
+  <text x="640" y="103" fill="#404040" font-size="13" font-weight="bold" text-anchor="middle">Basement Isolation Slab (z = 0.00 m)</text>
+
+  <!-- Foundation at -0.40 m -->
+  <rect x="476" y="150" width="380" height="18" fill="#d5dfe7" stroke="#404040" stroke-width="1.5"/>
+  <text x="666" y="165.5" fill="#404040" font-size="12" font-weight="bold" text-anchor="middle">Foundation / Pedestals (z = −0.40 m)</text>
+
+  <!-- Left column bearing (vertical link, 0.40 m tall) -->
+  <ellipse cx="520" cy="129" rx="18" ry="13" fill="#ffffff" stroke="#0080b4" stroke-width="2"/>
+  <line x1="520" y1="108" x2="520" y2="116" stroke="#404040" stroke-width="2"/>
+  <line x1="520" y1="142" x2="520" y2="150" stroke="#404040" stroke-width="2"/>
+
+  <!-- Right column bearing -->
+  <ellipse cx="804" cy="129" rx="18" ry="13" fill="#ffffff" stroke="#0080b4" stroke-width="2"/>
+  <line x1="804" y1="108" x2="804" y2="116" stroke="#404040" stroke-width="2"/>
+  <line x1="804" y1="142" x2="804" y2="150" stroke="#404040" stroke-width="2"/>
+
+  <!-- Nearly-horizontal viscous damper from foundation anchor (662, 150) to isolator top (804, 108) -->
+  <circle cx="635" cy="150" r="4.5" fill="#404040"/>
+  <circle cx="786" cy="108" r="4.5" fill="#0080b4"/>
+  <line x1="635" y1="150" x2="692" y2="134" stroke="#0080b4" stroke-width="2.5"/>
+  <rect x="690" y="120" width="40" height="16" transform="rotate(-15.5 710 128)" fill="#ffffff" stroke="#0080b4" stroke-width="2"/>
+  <line x1="728" y1="124" x2="786" y2="108" stroke="#0080b4" stroke-width="2.5"/>
+  <text x="666" y="182" fill="#0080b4" font-size="11.5" font-weight="bold" text-anchor="middle">Bearings at column joints; damper ~8.7 m long at 2.6°</text>
+
+  <!-- Right Panel Bottom: Plan View of One Damper V-Pair -->
+  <rect x="448" y="202" width="436" height="138" rx="6" fill="#ebf0f4" stroke="#404040" stroke-width="1.5"/>
+  <text x="666" y="225" font-weight="bold" fill="#404040" text-anchor="middle" font-size="15">Plan View of One Bay: 32 V-Pairs = 64 Viscous Dampers</text>
+
+  <!-- Two isolator-top joints on left, one foundation anchor on right -->
+  <circle cx="510" cy="252" r="7" fill="#ffffff" stroke="#0080b4" stroke-width="2"/>
+  <circle cx="510" cy="312" r="7" fill="#ffffff" stroke="#0080b4" stroke-width="2"/>
+  <rect x="634" y="275" width="14" height="14" fill="#404040"/>
+
+  <!-- Two V-dampers connecting anchor to the two isolator-top joints -->
+  <line x1="517" y1="254" x2="634" y2="280" stroke="#0080b4" stroke-width="2.5"/>
+  <line x1="517" y1="310" x2="634" y2="284" stroke="#0080b4" stroke-width="2.5"/>
+  <rect x="558" y="259" width="30" height="12" transform="rotate(12.5 573 265)" fill="#ffffff" stroke="#0080b4" stroke-width="1.8"/>
+  <rect x="558" y="293" width="30" height="12" transform="rotate(-12.5 573 299)" fill="#ffffff" stroke="#0080b4" stroke-width="1.8"/>
+
+  <text x="530" y="240" fill="#0080b4" font-size="11.5" font-weight="bold" text-anchor="middle">Isolator tops (0.00 m)</text>
+  <text x="641" y="329" fill="#404040" font-size="11.5" font-weight="bold" text-anchor="middle">Foundation anchor (−0.40 m)</text>
+
+  <text x="680" y="264" fill="#404040" font-size="12.5">• 2 dampers per anchor (V-shape)</text>
+  <text x="680" y="286" fill="#404040" font-size="12.5">• Resists both x and y motion</text>
+  <text x="680" y="308" fill="#0080b4" font-size="12.5" font-weight="bold">• F = C · sgn(v) |v|^0.5</text>
+</svg>
