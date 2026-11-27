@@ -37,6 +37,11 @@ Code, data, and figures for the posts on [nouseng.co](https://nouseng.co).
   NiceGUI web console, register bounds checking, and 30-second co-simulation
   ticks.
   [Read the post](https://nouseng.co/posts/dc2dh-skeleton/)
+- [DC2DH/post-3](DC2DH/post-3) — *A Digital Twin Needs a Memory.* The Post 2
+  operating loop publishes every completed tick to a Redpanda topic, and a
+  separate sink stores it in a QuestDB WAL table with replay-safe
+  deduplication on `(t_wall, event_id)`.
+  [Read the post](https://nouseng.co/posts/dc2dh-data-backbone/)
 
 ## R2RDynamics
 

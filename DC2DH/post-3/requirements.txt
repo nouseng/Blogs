@@ -1,0 +1,6 @@
+pymodbus==3.6.9
+nicegui==3.15.0
+fmpy==0.3.25
+kafka-python==3.0.10
+httpx==0.28.1
+questdb==5.0.0
