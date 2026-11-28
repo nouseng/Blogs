@@ -2,7 +2,7 @@
 
 # Technical Notes: Bolu FTR Hospital Isolation Study
 
-Companion to the [blog post](https://nouseng.co/posts/bolu-hospital-isolator-sweep/) and the FMUs `BoluFrictionPendulum.fmu` and `BoluLeadRubber.fmu`. File names in code format (scripts and `data/` files) name items of the authors' working project, which this folder does not include. Source: *Bolu 250-Bed Physical Therapy and Rehabilitation Hospital, Structural Calculation Report* (*Bolu 250 Yataklı Fizik Tedavi ve Rehabilitasyon Hastanesi Statik Hesap Raporu*), isolation section, 28 April 2022. Ministry of Health (Sağlık Bakanlığı) tender archive: search İKN `2025/860174` in [EKAP](https://ekapv2.kik.gov.tr/ekap/search) and download the tender document (İhale Dokümanı).
+Companion to the [blog post](https://nouseng.co/posts/bolu-hospital-isolator-sweep/) and the FMUs `BoluFrictionPendulum.fmu` and `BoluLeadRubber.fmu`. Scripts named in these notes, other than `run_fmu.py`, and the ground motion records belong to the authors' working project, which this folder does not include. Source: *Bolu 250-Bed Physical Therapy and Rehabilitation Hospital, Structural Calculation Report* (*Bolu 250 Yataklı Fizik Tedavi ve Rehabilitasyon Hastanesi Statik Hesap Raporu*), isolation section, 28 April 2022. Ministry of Health (Sağlık Bakanlığı) tender archive: search İKN `2025/860174` in [EKAP](https://ekapv2.kik.gov.tr/ekap/search) and download the tender document (İhale Dokümanı).
 
 ## 1. Superstructure Matrices
 

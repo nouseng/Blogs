@@ -17,11 +17,26 @@ document (İhale Dokümanı).
   `BoluFrictionPendulumModal.fmu`, `BoluLeadRubber.fmu`, `BoluFixedBase.fmu`).
 - `images/`: figures of the blog post and the notes.
 - `verification/`: comparison plots of drift, acceleration and travel.
+- `data/`: model matrices, geometry, scale factors and result files. It holds no
+  ground motion records.
+- `run_fmu.py`: runs one FMU and prints travel, drift and floor acceleration.
+
+## Run an FMU
+
+```bash
+pip install fmpy numpy
+python run_fmu.py                              # synthetic demonstration pulse
+python run_fmu.py BoluLeadRubber table.txt 1   # your own record table, pair 1
+```
+
+The FMU names are `BoluFrictionPendulum`, `BoluLeadRubber` and `BoluFixedBase`.
+The demonstration pulse does not reproduce the blog results.
 
 ## Ground Motion Input
 
-The FMUs contain no records. Set the `pairFile` parameter to a Modelica text
-table named `acc`. Column 1 is time [s]. Each record pair then adds three
+This folder contains no records. Download them from PEER NGA-West2 (RSN numbers
+and scale factors are in `data/load_cases.csv`). The FMUs read a Modelica text
+table named `acc` through the `pairFile` parameter. Column 1 is time [s]. Each record pair then adds three
 acceleration columns (x, y, z) in m/s². `pairIndex` selects the pair, and
 `rotated = true` swaps x and y.
 
