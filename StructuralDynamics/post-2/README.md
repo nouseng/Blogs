@@ -1,64 +1,29 @@
-# Bolu FTR Hospital: Standalone FMU Verification and Bearing Sweep
+# Bolu FTR Hospital: Isolation FMUs and Notes
 
-This self-contained folder reproduces the figures, record-by-record verification,
-and bearing parameter sweep in the [blog post][post] and
-[`technical_notes.md`](technical_notes.md) using **portable Model-Exchange FMUs**
-(`fmu/`). The FMUs are the only models in this folder. **Neither OpenModelica nor
-the source ETABS `.$et` models are required.**
+Companion files for the [blog post][post]: portable Model-Exchange FMUs, technical
+notes and verification figures.
 
 The ETABS models, design report and isolator specification come from the
 Ministry of Health (Sağlık Bakanlığı) tender archive. Search İKN `2025/860174`
 in [EKAP](https://ekapv2.kik.gov.tr/ekap/search) and download the tender
 document (İhale Dokümanı).
 
-## Setup
-
-```bash
-pip install fmpy numpy scipy matplotlib pandas jupyter
-```
-
 ## Contents
 
-- [Blog post][post]: article comparing the 27-DOF reduced model against
-  ETABS and the design report, plus a 107-design catalogue isolator sweep.
-- [`technical_notes.md`](technical_notes.md): peer-review notes on matrix
-  condensation, bearing/damper modelling, record provenance, report verification,
-  and the TBDY 2018 Chapter 14 sweep.
-- [`hospital_design.ipynb`](hospital_design.ipynb): interactive Jupyter notebook
-  reproducing all figures and tables in the blog post and `technical_notes.md`.
-- `fmu/`: portable 64-bit Model-Exchange FMUs (`BoluFrictionPendulum.fmu`,
-  `BoluLeadRubber.fmu`, `BoluFixedBase.fmu`).
-- `data/`: 52 earthquake records (`records/`), 253 ETABS load cases
-  (`load_cases.csv`), target spectra (`spectrum.csv`), condensed superstructure
-  and isolation tables (`storeys.csv`, `extents.json`, `isolators.csv`,
-  `isolator_groups.csv`, `dampers.csv`, `monitored_points.csv`), full-model
-  reference outputs (`full_model_profiles.json`, `etabs_check_rsn1158.csv`),
-  digitized report profile curves (`report_curves.json`), and cached FMU
-  verification and sweep results (`report_match.json`, `bearing_sweep.json`).
-- `images/`: figures referenced by the blog post and `hospital_design.ipynb`.
+- [`technical_notes.md`](technical_notes.md): matrix condensation, bearing and
+  damper models, record provenance, verification and the TBDY 2018 Chapter 14
+  sweep.
+- `fmu/`: 64-bit Model-Exchange FMUs (`BoluFrictionPendulum.fmu`,
+  `BoluFrictionPendulumModal.fmu`, `BoluLeadRubber.fmu`, `BoluFixedBase.fmu`).
+- `images/`: figures of the blog post and the notes.
+- `verification/`: comparison plots of drift, acceleration and travel.
 
-## Scripts
+## Ground Motion Input
 
-Run from this folder. Without options, each script uses the cached results in
-`data/` and finishes in seconds.
-
-| Script | What it does | Reads | Writes |
-| --- | --- | --- | --- |
-| [`bolu_record_pairs.py`](bolu_record_pairs.py) | Builds the 22 scaled record pairs (11 DD-2, 11 DD-1). The other scripts call it when needed. | `data/records/`, `data/load_cases.csv` | `runs/record_pairs.txt`, `runs/stops_report.json` |
-| [`bolu_time_history.py`](bolu_time_history.py) | Compares the report design with the design report and the full-model run. | `data/report_match.json`, `data/full_model_profiles.json`, `data/report_curves.json` | `images/Report*.png` |
-| [`bolu_bearing_sweep.py`](bolu_bearing_sweep.py) | Checks 35 friction pendulum and 72 lead-rubber catalogue designs against TBDY 2018 Chapter 14 and prints the table. | `data/bearing_sweep.json` | `images/BearingSweep.png` (with `--plot`) |
-
-Options:
-
-- `python bolu_time_history.py --live` runs all record pairs again on the FMUs
-  (needs `fmpy`) and rewrites `data/report_match.json` and the model figures.
-- `python bolu_bearing_sweep.py --fps-radius ... --fps-friction ...
-  --lrb-diameter ... --lrb-lead-ratio ... --lrb-thickness ... --lrb-modulus ...`
-  simulates the designs that are not yet in
-  `data/bearing_sweep.json` and adds them to it.
-- `--workers N` sets the number of parallel FMU processes (default 8).
-
-FMU results are cached in `runs/` (not in git).
+The FMUs contain no records. Set the `pairFile` parameter to a Modelica text
+table named `acc`. Column 1 is time [s]. Each record pair then adds three
+acceleration columns (x, y, z) in m/s². `pairIndex` selects the pair, and
+`rotated = true` swaps x and y.
 
 ## Bearing Sweep: Runs and Bounds
 
@@ -101,17 +66,15 @@ Damper $C$ is in MN·(s/m)^0.5.
   `acceleration_upper` for comparison. These values are not used in the
   checks.
 
-The ETABS archive holds one bound for each model file, and the Python full
-model runs the same bounds for the report design only. Each ETABS file pairs
-the FPS link with the damper link of the same bound. The `dd1low` prefix runs
-one pair per call:
+The ETABS archive holds one bound for each model file. Each file pairs the FPS
+link with the damper link of the same bound:
 
-| Bound | ETABS file (FPS link) | Python full model prefix |
-| --- | --- | --- |
-| DD-2 upper | `Superstructure` (`FP-DBE-UB`) | `run`, `lrb` |
-| DD-1 upper | `Foundation`, `Foundation_Vert` (`FP-MCE-UB`) | `dd1` |
-| DD-1 lower | `Foundation_MCE_LB` (`FP_MCE-LB`) | `dd1low` |
-| DD-2 nominal | none | none |
+| Bound | ETABS file (FPS link) |
+| --- | --- |
+| DD-2 upper | `Superstructure` (`FP-DBE-UB`) |
+| DD-1 upper | `Foundation`, `Foundation_Vert` (`FP-MCE-UB`) |
+| DD-1 lower | `Foundation_MCE_LB` (`FP_MCE-LB`) |
+| DD-2 nominal | none |
 
 The tender files have Turkish names: `Superstructure` (`Üst Yapı`),
 `Foundation` (`Temel`), `Foundation_Vert` (`Temel_Vert`) and

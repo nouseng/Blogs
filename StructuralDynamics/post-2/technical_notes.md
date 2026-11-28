@@ -2,7 +2,7 @@
 
 # Technical Notes: Bolu FTR Hospital Isolation Study
 
-Companion to the [blog post](https://nouseng.co/posts/bolu-hospital-isolator-sweep/) and the FMUs `BoluFrictionPendulum.fmu` and `BoluLeadRubber.fmu`. File names in code format refer to the project repository, which also holds the notebook `hospital_design.ipynb` that reproduces every table below. Source: *Bolu 250-Bed Physical Therapy and Rehabilitation Hospital, Structural Calculation Report* (*Bolu 250 Yataklı Fizik Tedavi ve Rehabilitasyon Hastanesi Statik Hesap Raporu*), isolation section, 28 April 2022. Ministry of Health (Sağlık Bakanlığı) tender archive: search İKN `2025/860174` in [EKAP](https://ekapv2.kik.gov.tr/ekap/search) and download the tender document (İhale Dokümanı).
+Companion to the [blog post](https://nouseng.co/posts/bolu-hospital-isolator-sweep/) and the FMUs `BoluFrictionPendulum.fmu` and `BoluLeadRubber.fmu`. File names in code format (scripts and `data/` files) name items of the authors' working project, which this folder does not include. Source: *Bolu 250-Bed Physical Therapy and Rehabilitation Hospital, Structural Calculation Report* (*Bolu 250 Yataklı Fizik Tedavi ve Rehabilitasyon Hastanesi Statik Hesap Raporu*), isolation section, 28 April 2022. Ministry of Health (Sağlık Bakanlığı) tender archive: search İKN `2025/860174` in [EKAP](https://ekapv2.kik.gov.tr/ekap/search) and download the tender document (İhale Dokümanı).
 
 ## 1. Superstructure Matrices
 
@@ -79,8 +79,8 @@ Comparison chain, DD-2 upper bound unless noted:
 | 4 | FPS Craig–Bampton 24 vs our ETABS `Superstructure` run | storey drift | 0.93–1.11 (1.04) |
 | 4 | FPS Craig–Bampton 24 vs our ETABS `Superstructure` run, DD-1 upper bound | storey drift | 0.91–1.12 (1.03) |
 
-- **FPS reference:** our ETABS 22.6 run of the tender's `Superstructure` model (`data/etabs_fps_drifts.json`) gives `51` to `91 %` of the FPS drifts in Report Table 19. Table 19 matches our DD-1 runs (mean `1.08`) better than DD-2 (`0.63–0.91`), and its $y/x$ storey stiffness ratio reaches `1.25` at `Floor 1`, whereas every ETABS model in the package gives `0.98–1.01`. The archived models were last saved on 4–5 April 2022, before the 28 April report, so the table may come from a later model. FPS drift is therefore checked against our ETABS run. The full model matches it within `1.2 %` on every storey under DD-2 and `2.9 %` under DD-1.
-- **FPS acceleration:** the ETABS `Story Accelerations` export of the same run (`../etabs/Story Accelerations.xlsx`) returns the ground motion on `Ground`, `Floor 1`, `Floor 6` and `Floor 7` and spikes up to `129 g` on `Basement`, so it is not a joint maximum of the isolated floors. The full model on the ETABS matrices, with the same `1,500` Ritz vectors and `0.005 s` output step as the ETABS case `ModalRitz`, is the FPS acceleration reference instead. Report Table 17 is not used.
+- **FPS reference:** FPS drift is checked against our ETABS 22.6 run of the tender's `Superstructure` model (`data/etabs_fps_drifts.json`). The full model matches it within `1.2 %` on every storey under DD-2 and `2.9 %` under DD-1.
+- **FPS acceleration:** the ETABS `Story Accelerations` export of the same run (`../etabs/Story Accelerations.xlsx`) returns the ground motion on `Ground`, `Floor 1`, `Floor 6` and `Floor 7` and spikes up to `129 g` on `Basement`, so it is not a joint maximum of the isolated floors. The full model on the ETABS matrices, with the same `1,500` Ritz vectors and `0.005 s` output step as the ETABS case `ModalRitz`, is the FPS acceleration reference instead.
 - **LRB:** the full `Foundation` run gives Report Table 20 drift at `0.98–1.08` and Table 18 acceleration at `0.94–1.12`, including the `Ground` entrance canopy peak (`1.12 g` vs `1.19 g`). A softer report frame therefore does not explain the FPS differences.
 - **Solver (step 2):** an independent 27-DOF Python ODE integration (`bolu_reduced_check.py`) matches the Modelica FMU within `0.2 %` on every storey, with isolation-centre travel of `173.7` vs `173.8 mm`.
 - **Travel history (blog Figure 4):** the full model runs RSN 1176 `MCE_1176_Y` with lower-bound friction (`0.044`) and dampers on the upper-bound Ritz basis (`bolu_full_model.py` `dd1low 4 1`, with `LINK_PDELTA = False`). A rigid-body fit of the 184 bearing slips, within `18 mm`, gives the corner travel. Peaks read `0.93`, `0.98`, `1.00` and `1.00` of the 27-DOF model at Points 1 to 4. With link P-Delta ($0.5 P u$ on the `400 mm` links), the lower-bound full model diverges once bearing slips reach about `1.0 m` (RSN 1176 at `11.7 s`, RSN 5831 at `67.5 s`). The upper-bound runs, with slab travel up to `0.70 m`, stay stable. The 27-DOF model has no link P-Delta.
@@ -95,7 +95,7 @@ The figures in `verification/` add the full model to the blog's drift and accele
 
 ## 4. TBDY 2018 Chapter 14 Bearing Sweep
 
-`bolu_bearing_sweep.py` runs each design at 11 pairs × 2 orientations × 3 bounds (`66` runs), dampers fixed at the report design. TBDY §14.0.2 counts the dampers as part of the isolation system, and every ETABS model pairs the friction links with the damper link of the same bound (`FP-DBE-UB` and `FP-MCE-UB` with `VD_UB`, `FP_MCE-LB` with `VD_LB`). This study follows that pairing. Damper $C$ is the nominal `2.35` MN·(s/m)^0.5 of the damper specification times its own factors, $\lambda_{\max} = 1.20$ and $\lambda_{\min} = 0.85$ (aging and test scatter). Mixed bounds, such as upper-bound friction with lower-bound dampers, are not run. TBDY does not require them, but they are worth a run, because the two devices have separate factors. Upper bound is $1.5\mu$ for FPS and Report Table 10 factors `(1.6445, 1.9435)` on $(Q_d, K_2)$ for LRB; lower bound is $0.8\mu$ and `(0.595, 0.765)`. Limits: DD-2 upper-bound drift $\le 0.50\text{ \%}$ and $V \le 0.20\,W$ (TBDY §14.3.6), DD-2 nominal floor acceleration $\le 0.30\text{ g}$ (Report §10.3, TBDY §14.3.10), DD-1 lower-bound $D_{TM} \le 1.04\text{ m}$ (FPS) or $0.75\text{ m}$ (LRB), and LRB rubber shear strain $\le 250\text{ \%}$. Drift and acceleration are rigid-floor joint maxima with torsion (§3). $D_{TM}$ is the worst corner and orientation of the 11-pair mean of the peak vector travel (TBDY §14.14.4.4–14.14.4.5). All designs pass TBDY §14.3.7 (restoring force and wind) and $T_d \le 6\text{ s}$, except LRB D1000 L250 Tr450 G0.4 ($T_d = 6.01$ s), which is not run. The `7,062` runs took `3 h 34 min` on eight worker processes.
+`bolu_bearing_sweep.py` runs each design at 11 pairs × 2 orientations × 3 bounds (`66` runs), dampers fixed at the report design. TBDY §14.0.2 counts the dampers as part of the isolation system, and every ETABS model pairs the friction links with the damper link of the same bound (`FP-DBE-UB` and `FP-MCE-UB` with `VD_UB`, `FP_MCE-LB` with `VD_LB`). This study follows that pairing. Damper $C$ is the nominal `2.35` MN·(s/m)^0.5 of the damper specification times its own factors, $\lambda_{\max} = 1.20$ and $\lambda_{\min} = 0.85$ (aging and test scatter). Mixed bounds, such as upper-bound friction with lower-bound dampers, are not run. TBDY does not require them, but they are worth a run, because the two devices have separate factors. Upper bound is $1.5\mu$ for FPS and Report Table 10 factors `(1.6445, 1.9435)` on $(Q_d, K_2)$ for LRB; lower bound is $0.8\mu$ and `(0.595, 0.765)`. Limits: DD-2 upper-bound drift $\le 0.50\text{ \%}$ and $V \le 0.20\,W$ (Ministry of Health requirements as stated in the report, §9 and §11; bound per TBDY §14.3.6), DD-2 nominal floor acceleration $\le 0.30\text{ g}$ (Ministry specification §3.2.21, Report §9; TBDY §14.3.10 permits nominal values), DD-1 lower-bound $D_{TM} \le 1.04\text{ m}$ (FPS) or $0.75\text{ m}$ (LRB), and LRB rubber shear strain $\le 250\text{ \%}$. Drift and acceleration are rigid-floor joint maxima with torsion (§3). $D_{TM}$ is the worst corner and orientation of the 11-pair mean of the peak vector travel (TBDY §14.14.4.4–14.14.4.5). All designs pass TBDY §14.3.7 (restoring force and wind) and $T_d \le 6\text{ s}$, except LRB D1000 L250 Tr450 G0.4 ($T_d = 6.01$ s), which is not run. The `7,062` runs took `2 h 57 min` to `3 h 34 min` on eight worker processes.
 
 **Capacity basis.** The `1.04 m` and `0.75 m` capacities are design choices of the report, not TBDY limits. TBDY 2018 only requires prototype tests at $1.00\,D_{TM}$ (Table 14.4), so the capacity must be at least $D_{TM}$. The report's chain:
 
@@ -108,17 +108,18 @@ Two points rest on our reading of TBDY. The `1.00 m` uses `42 %` damping, above 
 
 ### Catalogue Basis
 
-The grid uses parameters that manufacturers publish. Turkish makers are marked **[TR]**.
+The grid spans catalogue ranges. The rows list only values read on the maker's own pages (28 November 2026). Turkish makers are marked **[TR]**.
 
-| Maker | Type | Published range | Used for |
+| Maker | Type | Published values | Used for |
 | :--- | :--- | :--- | :--- |
-| Maurer SIP-D | FPS | $R$ = 1.5–5 m, $\mu$ = 3.0 % or 5.5 %, capacity ≥ ±1.5 m | $R$ up to 5 m, $\mu$ |
-| CPA | FPS | $\mu$ = 2–10 %, $R \approx 2.65$ m | $\mu$ range, $R = 2.65$ m |
-| Bridgestone LH / LL | LRB | $D_o$ = 600–1500 mm, lead ≈ $D_o/5$, $T_r$ ≈ 160–200 mm, $G$ = 0.385 MPa, lead 7.97 MPa | $D_o$, lead ratio, lead stress |
-| **[TR]** Arsan ATLAS (İstanbul) | LRB, FPS | $G$ = 0.4 / 0.6 / 0.9 MPa, damping 15–30 %, CE to EN 15129, sizes per project | $G$ |
-| **[TR]** Fago (Çorlu) | LRB | LRB700: $G \approx 0.38$ MPa, lead ≈ 8 MPa, 450 % strain claimed | $G$, lead stress |
-| **[TR]** TİS (Ankara) | FPS (TSP/TDP) | Sizes per project, no published $R$ or $\mu$ | — |
-| **[TR]** Arfen (Kocaeli) | FPS, LRB | Stroke 70–200 % of bearing height, sizes per project | — |
+| [Maurer SIP-D](https://www.maurer.eu/fileadmin/downloadcenter/TI_004_EN.pdf) | FPS | $R_{eff}$ = 1.5–5 m, $\mu$ = 3.0 % or 5.5 % | $R$ up to 5 m, $\mu$ |
+| [Bridgestone LH](https://www.bridgestone.com/products/diversified/antiseismic_rubber/pdf/catalog_201710.pdf) | LRB | $D_o$ = 600–1500 mm, standard lead $D_o/5$, $T_r$ ≈ 200 mm, $G$ = 0.385 MPa, lead ≈ 8 MPa (from $Q_d$) | $D_o$, lead ratio, lead stress |
+| **[TR]** [Arsan ATLAS](https://www.arsan.com/en/urunlerimiz/yapi-urunleri/kursun-cekirdekli-kaucuk-izolator/) | LRB | CE to EN 15129, designed per project | — |
+| **[TR]** [Fago](https://fagosismikizolasyon.com/lrb-lead-rubber-bearing/) | LRB, FPS | LRB shear strain up to 450 % claimed | — |
+| **[TR]** [TİS](https://tis.com.tr/sss) | FPS (TDP) | Diameter 500–2000 mm, sized per project | — |
+| **[TR]** [Arfen](https://arfen.com.tr/sismik-izolatorler) | LRB, HDRB, FPS | LRB movement 70–200 % of bearing height | — |
+
+The values $\mu$ = 0.02, 0.08 and 0.10, $R$ = 2.65 m, $G$ = 0.4 and 0.6 MPa and $T_r$ = 250–450 mm extend these ranges. We found no catalogue page that confirms them.
 
 FPS grid: $R$ = 2.0, 2.65, 3.0, 4.0, 5.0, 6.0, 7.4 m × $\mu$ = 0.02, 0.03, 0.055, 0.08, 0.10 (`35` designs). $R = 6$ m lies beyond the Maurer range, and $R = 7.4$ m is the report and ETABS value (`RADIUS 7400`). LRB grid: $D_o$ = 1.0–1.5 m in 0.1 m steps × lead $d_l/D_o$ = 0.20, 0.25 × $T_r$ = 250, 300, 450 mm × $G$ = 0.4, 0.6 MPa, lead yield stress 8 MPa (`72` designs), plus the report LRB (`G` 0.6 MPa, lead 11 MPa).
 
